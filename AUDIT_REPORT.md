@@ -1,6 +1,6 @@
 # Audit Report — Kenya Childhood Malnutrition Risk Prediction System
 
-**Repository:** `bucky-ops/Kenya-Childhood-Malnutrition-Risk-Prediction-System`
+**Repository:** `collins-muchiri/Kenya-Childhood-Malnutrition-Risk-Prediction-System`
 **Audit date:** 2026-09-13
 **Auditor:** Z.ai Code (automated)
 **Status before audit:** Python ML pipeline + Streamlit apps, 21 tests passing, **no live web deployment**
