@@ -79,7 +79,7 @@
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/bucky-ops/Kenya-Childhood-Malnutrition-Risk-Prediction-System.git
+git clone https://github.com/collins-muchiri/Kenya-Childhood-Malnutrition-Risk-Prediction-System.git
 cd Kenya-Childhood-Malnutrition-Risk-Prediction-System
 
 # 2. Install web app dependencies
@@ -150,7 +150,7 @@ npx vercel --prod --token $VERCEL_TOKEN
 
 ### Manual (Vercel Dashboard)
 1. Go to https://vercel.com/new
-2. Import the GitHub repo `bucky-ops/Kenya-Childhood-Malnutrition-Risk-Prediction-System`
+2. Import the GitHub repo `collins-muchiri/Kenya-Childhood-Malnutrition-Risk-Prediction-System`
 3. Vercel auto-detects Next.js (root directory: `web/`)
 4. Click **Deploy**
 
