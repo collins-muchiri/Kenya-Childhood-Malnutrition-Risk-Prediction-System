@@ -1,0 +1,8 @@
+{
+  "file": "economic_data.csv",
+  "source": "TO VERIFY: record the publisher and dataset name from your download history",
+  "licence": "TO VERIFY",
+  "retrieval_date": "TO VERIFY",
+  "processing": "TO VERIFY: cleaning and joins applied before this file entered the repository",
+  "note": "train_model.py refuses to run while any field remains TO VERIFY"
+}
