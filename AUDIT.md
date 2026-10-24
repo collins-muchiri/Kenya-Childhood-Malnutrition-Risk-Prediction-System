@@ -34,6 +34,9 @@ Environment limits disclosed: the audit sandbox has no Docker daemon and no macO
 Editable install of `kam_forecast` + dev extras on Python 3.12.15 succeeded with zero manual steps.
 
 ### 3.2 Tests - FAIL (7 of 21)
+
+Side-effect finding: running pytest modified the tracked file `data/processed/validation_report.csv` in the working tree (observed via `git status` immediately after the run). Tests must not mutate committed artefacts; scheduled for fix in P1 (write to tmp_path).
+
 Failures concentrate in pandas-2.x incompatibilities and data-path assumptions:
 
 - `ValueError: Invalid frequency: M ... Please use 'ME' instead` (pandas >= 2.2 removed the `M` offset alias). Affects `test_data_cleaning`, `test_feature_engineering`, `test_model_training`, `test_validation`.
