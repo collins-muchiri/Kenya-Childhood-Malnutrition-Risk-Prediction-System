@@ -1,0 +1,7 @@
+# Break-it test: audit_suppressions.py must FAIL on untagged noqa
+$ python scripts/audit_suppressions.py --check
+VIOLATION: docs/qa/sweep_raw.md:5: hook bypass without compliance tag SUPPRESSION(issue=..., owner=..., expiry=YYYY-MM-DD)
+VIOLATION: docs/qa/sweep_raw.md:102: ts-ignore without compliance tag SUPPRESSION(issue=..., owner=..., expiry=YYYY-MM-DD)
+VIOLATION: src/_breakit_probe.py:1: noqa without compliance tag SUPPRESSION(issue=..., owner=..., expiry=YYYY-MM-DD)
+suppressions: 0 compliant, 3 violation(s)
+exit: 1

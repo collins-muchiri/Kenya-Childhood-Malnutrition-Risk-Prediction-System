@@ -1,0 +1,323 @@
+.....F.FFFF..F.....F.                                                    [100%]
+=================================== FAILURES ===================================
+____________________ TestDataCleaning.test_clean_data_basic ____________________
+
+>   ???
+
+pandas/_libs/tslibs/offsets.pyx:7998: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   ValueError: 'M' is no longer supported for offsets. Please use 'ME' instead.
+
+pandas/_libs/tslibs/offsets.pyx:7863: ValueError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_data_cleaning.TestDataCleaning testMethod=test_clean_data_basic>
+
+    def test_clean_data_basic(self):
+        """Test basic data cleaning functionality."""
+        # Create test data with some missing values
+        df = pd.DataFrame({
+            'sub_county': ['A', 'A', 'A', 'B', 'B', 'B'],
+            'county': ['X', 'X', 'X', 'Y', 'Y', 'Y'],
+>           'date': pd.date_range('2023-01-01', periods=6, freq='M'),
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'feature1': [1, np.nan, 3, 4, np.nan, 6],
+            'feature2': [10, 20, np.nan, 40, 50, np.nan],
+            'acute_malnutrition_cases': [100, 120, 110, 90, 95, 105]
+        })
+
+tests/test_data_cleaning.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tmp/venvs/kmal/lib/python3.12/site-packages/pandas/core/indexes/datetimes.py:2727: in date_range
+    freq = to_offset(freq)
+           ^^^^^^^^^^^^^^^
+pandas/_libs/tslibs/offsets.pyx:7903: in pandas._libs.tslibs.offsets.to_offset
+    ???
+pandas/_libs/tslibs/offsets.pyx:8048: in pandas._libs.tslibs.offsets.to_offset
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   ValueError: Invalid frequency: M. Failed to parse with error message: ValueError("'M' is no longer supported for offsets. Please use 'ME' instead.")
+
+pandas/_libs/tslibs/offsets.pyx:7809: ValueError
+____________ TestDataCleaning.test_clean_data_missing_target_column ____________
+
+>   ???
+
+pandas/_libs/tslibs/offsets.pyx:7998: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   ValueError: 'M' is no longer supported for offsets. Please use 'ME' instead.
+
+pandas/_libs/tslibs/offsets.pyx:7863: ValueError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_data_cleaning.TestDataCleaning testMethod=test_clean_data_missing_target_column>
+
+    def test_clean_data_missing_target_column(self):
+        """Test cleaning with missing target column raises error."""
+        df = pd.DataFrame({
+            'sub_county': ['A', 'B'],
+            'county': ['X', 'Y'],
+>           'date': pd.date_range('2023-01-01', periods=2, freq='M'),
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'feature1': [1, 2]
+        })
+
+tests/test_data_cleaning.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tmp/venvs/kmal/lib/python3.12/site-packages/pandas/core/indexes/datetimes.py:2727: in date_range
+    freq = to_offset(freq)
+           ^^^^^^^^^^^^^^^
+pandas/_libs/tslibs/offsets.pyx:7903: in pandas._libs.tslibs.offsets.to_offset
+    ???
+pandas/_libs/tslibs/offsets.pyx:8048: in pandas._libs.tslibs.offsets.to_offset
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   ValueError: Invalid frequency: M. Failed to parse with error message: ValueError("'M' is no longer supported for offsets. Please use 'ME' instead.")
+
+pandas/_libs/tslibs/offsets.pyx:7809: ValueError
+___________________ TestDataLoading.test_load_and_merge_data ___________________
+
+>   ???
+
+pandas/_libs/tslibs/offsets.pyx:7998: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   ValueError: 'M' is no longer supported for offsets. Please use 'ME' instead.
+
+pandas/_libs/tslibs/offsets.pyx:7863: ValueError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_data_loading.TestDataLoading testMethod=test_load_and_merge_data>
+
+    def setUp(self):
+        """Set up test data in temporary directory."""
+        self.temp_dir = tempfile.mkdtemp()
+    
+        # Create sample data files
+        self.raw_data_dir = Path(self.temp_dir) / "raw"
+        self.raw_data_dir.mkdir(exist_ok=True)
+    
+        # Sample WHO nutrition data (using CSV since that's what we can easily create in tests)
+        who_data = pd.DataFrame({
+            'county': ['Nairobi', 'Mombasa'] * 5,
+            'sub_county': ['Westlands', 'Dagoretti'] * 5,
+>           'date': pd.date_range('2023-01-01', periods=10, freq='M'),
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'nutrition_indicator': np.random.rand(10) * 100
+        })
+
+tests/test_data_loading.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tmp/venvs/kmal/lib/python3.12/site-packages/pandas/core/indexes/datetimes.py:2727: in date_range
+    freq = to_offset(freq)
+           ^^^^^^^^^^^^^^^
+pandas/_libs/tslibs/offsets.pyx:7903: in pandas._libs.tslibs.offsets.to_offset
+    ???
+pandas/_libs/tslibs/offsets.pyx:8048: in pandas._libs.tslibs.offsets.to_offset
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   ValueError: Invalid frequency: M. Failed to parse with error message: ValueError("'M' is no longer supported for offsets. Please use 'ME' instead.")
+
+pandas/_libs/tslibs/offsets.pyx:7809: ValueError
+___________________ TestDataLoading.test_load_data_file_csv ____________________
+
+>   ???
+
+pandas/_libs/tslibs/offsets.pyx:7998: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   ValueError: 'M' is no longer supported for offsets. Please use 'ME' instead.
+
+pandas/_libs/tslibs/offsets.pyx:7863: ValueError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_data_loading.TestDataLoading testMethod=test_load_data_file_csv>
+
+    def setUp(self):
+        """Set up test data in temporary directory."""
+        self.temp_dir = tempfile.mkdtemp()
+    
+        # Create sample data files
+        self.raw_data_dir = Path(self.temp_dir) / "raw"
+        self.raw_data_dir.mkdir(exist_ok=True)
+    
+        # Sample WHO nutrition data (using CSV since that's what we can easily create in tests)
+        who_data = pd.DataFrame({
+            'county': ['Nairobi', 'Mombasa'] * 5,
+            'sub_county': ['Westlands', 'Dagoretti'] * 5,
+>           'date': pd.date_range('2023-01-01', periods=10, freq='M'),
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'nutrition_indicator': np.random.rand(10) * 100
+        })
+
+tests/test_data_loading.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tmp/venvs/kmal/lib/python3.12/site-packages/pandas/core/indexes/datetimes.py:2727: in date_range
+    freq = to_offset(freq)
+           ^^^^^^^^^^^^^^^
+pandas/_libs/tslibs/offsets.pyx:7903: in pandas._libs.tslibs.offsets.to_offset
+    ???
+pandas/_libs/tslibs/offsets.pyx:8048: in pandas._libs.tslibs.offsets.to_offset
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   ValueError: Invalid frequency: M. Failed to parse with error message: ValueError("'M' is no longer supported for offsets. Please use 'ME' instead.")
+
+pandas/_libs/tslibs/offsets.pyx:7809: ValueError
+_______________ TestFeatureEngineering.test_build_features_basic _______________
+
+>   ???
+
+pandas/_libs/tslibs/offsets.pyx:7998: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   ValueError: 'M' is no longer supported for offsets. Please use 'ME' instead.
+
+pandas/_libs/tslibs/offsets.pyx:7863: ValueError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_feature_engineering.TestFeatureEngineering testMethod=test_build_features_basic>
+
+    def test_build_features_basic(self):
+        """Test basic feature engineering functionality."""
+        # Create test data
+        df = pd.DataFrame({
+            'sub_county': ['A', 'A', 'A', 'B', 'B', 'B'],
+            'county': ['X', 'X', 'X', 'Y', 'Y', 'Y'],
+>           'date': pd.date_range('2023-01-01', periods=6, freq='M'),
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'feature1': [1, 2, 3, 4, 5, 6],
+            'feature2': [10, 20, 30, 40, 50, 60],
+            'acute_malnutrition_cases': [100, 120, 110, 90, 95, 105]
+        })
+
+tests/test_feature_engineering.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tmp/venvs/kmal/lib/python3.12/site-packages/pandas/core/indexes/datetimes.py:2727: in date_range
+    freq = to_offset(freq)
+           ^^^^^^^^^^^^^^^
+pandas/_libs/tslibs/offsets.pyx:7903: in pandas._libs.tslibs.offsets.to_offset
+    ???
+pandas/_libs/tslibs/offsets.pyx:8048: in pandas._libs.tslibs.offsets.to_offset
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   ValueError: Invalid frequency: M. Failed to parse with error message: ValueError("'M' is no longer supported for offsets. Please use 'ME' instead.")
+
+pandas/_libs/tslibs/offsets.pyx:7809: ValueError
+___________________ TestModelTraining.test_train_model_basic ___________________
+
+>   ???
+
+pandas/_libs/tslibs/offsets.pyx:7998: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   ValueError: 'M' is no longer supported for offsets. Please use 'ME' instead.
+
+pandas/_libs/tslibs/offsets.pyx:7863: ValueError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_model_training.TestModelTraining testMethod=test_train_model_basic>
+
+    def test_train_model_basic(self):
+        """Test basic model training functionality."""
+        # Create test data with sufficient features
+        df = pd.DataFrame({
+            'sub_county': ['A', 'A', 'A', 'B', 'B', 'B'] * 5,
+            'county': ['X', 'X', 'X', 'Y', 'Y', 'Y'] * 5,
+>           'date': pd.date_range('2023-01-01', periods=30, freq='M'),
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'feature1': np.random.rand(30),
+            'feature2': np.random.rand(30) * 100,
+            'acute_malnutrition_cases': np.random.randint(50, 150, 30)
+        })
+
+tests/test_model_training.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tmp/venvs/kmal/lib/python3.12/site-packages/pandas/core/indexes/datetimes.py:2727: in date_range
+    freq = to_offset(freq)
+           ^^^^^^^^^^^^^^^
+pandas/_libs/tslibs/offsets.pyx:7903: in pandas._libs.tslibs.offsets.to_offset
+    ???
+pandas/_libs/tslibs/offsets.pyx:8048: in pandas._libs.tslibs.offsets.to_offset
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   ValueError: Invalid frequency: M. Failed to parse with error message: ValueError("'M' is no longer supported for offsets. Please use 'ME' instead.")
+
+pandas/_libs/tslibs/offsets.pyx:7809: ValueError
+___________________ TestValidation.test_run_validation_basic ___________________
+
+>   ???
+
+pandas/_libs/tslibs/offsets.pyx:7998: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   ValueError: 'M' is no longer supported for offsets. Please use 'ME' instead.
+
+pandas/_libs/tslibs/offsets.pyx:7863: ValueError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_validation.TestValidation testMethod=test_run_validation_basic>
+
+    def test_run_validation_basic(self):
+        """Test basic validation functionality."""
+        # Create test data
+        df = pd.DataFrame({
+            'sub_county': ['A', 'A', 'A', 'B', 'B', 'B'],
+            'county': ['X', 'X', 'X', 'Y', 'Y', 'Y'],
+>           'date': pd.date_range('2023-01-01', periods=6, freq='M'),
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'acute_malnutrition_cases': [100, 120, 110, 90, 95, 105],
+            'other_indicator': [10, 20, 30, 40, 50, 60]
+        })
+
+tests/test_validation.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tmp/venvs/kmal/lib/python3.12/site-packages/pandas/core/indexes/datetimes.py:2727: in date_range
+    freq = to_offset(freq)
+           ^^^^^^^^^^^^^^^
+pandas/_libs/tslibs/offsets.pyx:7903: in pandas._libs.tslibs.offsets.to_offset
+    ???
+pandas/_libs/tslibs/offsets.pyx:8048: in pandas._libs.tslibs.offsets.to_offset
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   ValueError: Invalid frequency: M. Failed to parse with error message: ValueError("'M' is no longer supported for offsets. Please use 'ME' instead.")
+
+pandas/_libs/tslibs/offsets.pyx:7809: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_data_cleaning.py::TestDataCleaning::test_clean_data_basic
+FAILED tests/test_data_cleaning.py::TestDataCleaning::test_clean_data_missing_target_column
+FAILED tests/test_data_loading.py::TestDataLoading::test_load_and_merge_data
+FAILED tests/test_data_loading.py::TestDataLoading::test_load_data_file_csv
+FAILED tests/test_feature_engineering.py::TestFeatureEngineering::test_build_features_basic
+FAILED tests/test_model_training.py::TestModelTraining::test_train_model_basic
+FAILED tests/test_validation.py::TestValidation::test_run_validation_basic - ...
+7 failed, 14 passed in 1.93s
