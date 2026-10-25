@@ -1,7 +1,21 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Bell, Mail, BellOff, AlertTriangle, TrendingUp, MapPin } from 'lucide-react';
+import { useCallback, useReducer, useState, useSyncExternalStore } from 'react';
+import { Bell, Mail, BellOff, TrendingUp, MapPin } from 'lucide-react';
+
+type PushPermission = 'unsupported' | 'denied' | 'granted' | 'default';
+
+// Notification.permission has no change event; useSyncExternalStore with a
+// no-op subscribe reads it per render (SSR-safe via the server snapshot),
+// replacing the previous mount-effect setState (react-hooks/set-state-in-effect).
+function readPermission(): PushPermission {
+  if (typeof window === 'undefined' || !('Notification' in window)) {
+    return 'unsupported';
+  }
+  return Notification.permission as PushPermission;
+}
+
+const serverPermissionSnapshot = (): PushPermission => 'unsupported';
 
 interface Alert {
   id: string;
@@ -18,7 +32,8 @@ const MOCK_ALERTS: Alert[] = [
     id: 'alert-001',
     county: 'Turkana',
     level: 'critical',
-    message: 'GAM prevalence exceeds 30% — IPC Phase 4 (Critical). Immediate therapeutic feeding scale-up required.',
+    message:
+      'GAM prevalence exceeds 30% — IPC Phase 4 (Critical). Immediate therapeutic feeding scale-up required.',
     triggered_at: '2026-09-13T14:00:00Z',
     metric: 'GAM rate',
     value: 30.8,
@@ -27,7 +42,8 @@ const MOCK_ALERTS: Alert[] = [
     id: 'alert-002',
     county: 'Garissa',
     level: 'critical',
-    message: 'Predicted acute malnutrition cases rising — drought-driven surge anticipated in next 4 weeks.',
+    message:
+      'Predicted acute malnutrition cases rising — drought-driven surge anticipated in next 4 weeks.',
     triggered_at: '2026-09-13T13:30:00Z',
     metric: 'Predicted cases',
     value: 3008,
@@ -54,17 +70,26 @@ const MOCK_ALERTS: Alert[] = [
     id: 'alert-005',
     county: 'Wajir',
     level: 'moderate',
-    message: 'Water access dropped below 50% — WASH intervention recommended to prevent infection-driven malnutrition.',
+    message:
+      'Water access dropped below 50% — WASH intervention recommended to prevent infection-driven malnutrition.',
     triggered_at: '2026-09-13T09:20:00Z',
     metric: 'Water access',
     value: 48,
   },
 ];
 
-const LEVEL_STYLES: Record<Alert['level'], { bg: string; text: string; border: string; icon: string }> = {
+const LEVEL_STYLES: Record<
+  Alert['level'],
+  { bg: string; text: string; border: string; icon: string }
+> = {
   critical: { bg: 'bg-red-50', text: 'text-red-700', border: 'border-red-200', icon: '🔴' },
-  high:     { bg: 'bg-orange-50', text: 'text-orange-700', border: 'border-orange-200', icon: '🟠' },
-  moderate: { bg: 'bg-yellow-50', text: 'text-yellow-700', border: 'border-yellow-200', icon: '🟡' },
+  high: { bg: 'bg-orange-50', text: 'text-orange-700', border: 'border-orange-200', icon: '🟠' },
+  moderate: {
+    bg: 'bg-yellow-50',
+    text: 'text-yellow-700',
+    border: 'border-yellow-200',
+    icon: '🟡',
+  },
 };
 
 export default function AlertsClient() {
@@ -73,16 +98,11 @@ export default function AlertsClient() {
   const [email, setEmail] = useState('');
   const [counties, setCounties] = useState<string[]>([]);
   const [pushEnabled, setPushEnabled] = useState(false);
-  const [pushStatus, setPushStatus] = useState<'unsupported' | 'denied' | 'granted' | 'default'>('default');
-
-  // Check browser push notification support
-  useEffect(() => {
-    if (typeof window === 'undefined' || !('Notification' in window)) {
-      setPushStatus('unsupported');
-    } else {
-      setPushStatus(Notification.permission as 'default' | 'granted' | 'denied');
-    }
-  }, []);
+  // Bumping the version forces a re-render so the store snapshot is re-read
+  // after Notification.requestPermission() resolves.
+  const [, bumpPermissionVersion] = useReducer((v: number) => v + 1, 0);
+  const subscribe = useCallback(() => () => {}, []);
+  const pushStatus = useSyncExternalStore(subscribe, readPermission, serverPermissionSnapshot);
 
   const enablePush = async () => {
     if (pushStatus === 'unsupported') {
@@ -90,7 +110,7 @@ export default function AlertsClient() {
       return;
     }
     const permission = await Notification.requestPermission();
-    setPushStatus(permission);
+    bumpPermissionVersion();
     if (permission === 'granted') {
       setPushEnabled(true);
       // Send a test notification
@@ -128,7 +148,10 @@ export default function AlertsClient() {
   const highCount = alerts.filter((a) => a.level === 'high').length;
 
   return (
-    <main id="main-content" className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-cyan-50/30">
+    <main
+      id="main-content"
+      className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-cyan-50/30"
+    >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         {/* Header */}
         <header className="text-center">
@@ -165,25 +188,56 @@ export default function AlertsClient() {
               <Bell className="w-5 h-5 text-emerald-600" aria-hidden="true" />
               <p className="text-sm text-emerald-900">
                 <strong>Subscribed!</strong> You&apos;ll receive alerts at <code>{email}</code>
-                {counties.length > 0 && ` for ${counties.length} ${counties.length === 1 ? 'county' : 'counties'}`}
+                {counties.length > 0 &&
+                  ` for ${counties.length} ${counties.length === 1 ? 'county' : 'counties'}`}
                 {pushEnabled && ' + browser push'}.
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubscribe} className="space-y-4">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">Email address</label>
-                <input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" className="w-full px-3 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
+                  Email address
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="w-full px-3 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                />
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-700 mb-2">Counties to monitor (leave empty for all)</p>
+                <p className="text-sm font-medium text-slate-700 mb-2">
+                  Counties to monitor (leave empty for all)
+                </p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-40 overflow-y-auto">
-                  {Object.keys(MOCK_ALERTS.reduce((acc, a) => { acc[a.county] = true; return acc; }, {} as Record<string, boolean>)).sort().map((c) => (
-                    <label key={c} className="flex items-center gap-2 text-xs text-slate-700 cursor-pointer p-1.5 rounded hover:bg-slate-50">
-                      <input type="checkbox" checked={counties.includes(c)} onChange={() => toggleCounty(c)} className="w-3.5 h-3.5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500" />
-                      {c}
-                    </label>
-                  ))}
+                  {Object.keys(
+                    MOCK_ALERTS.reduce(
+                      (acc, a) => {
+                        acc[a.county] = true;
+                        return acc;
+                      },
+                      {} as Record<string, boolean>,
+                    ),
+                  )
+                    .sort()
+                    .map((c) => (
+                      <label
+                        key={c}
+                        className="flex items-center gap-2 text-xs text-slate-700 cursor-pointer p-1.5 rounded hover:bg-slate-50"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={counties.includes(c)}
+                          onChange={() => toggleCounty(c)}
+                          className="w-3.5 h-3.5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+                        />
+                        {c}
+                      </label>
+                    ))}
                 </div>
               </div>
               {/* Push notification opt-in */}
@@ -198,19 +252,31 @@ export default function AlertsClient() {
                 <div className="flex-1">
                   <p className="text-sm font-medium text-slate-700">Browser push notifications</p>
                   <p className="text-xs text-slate-500">
-                    {pushStatus === 'unsupported' ? 'Not supported in this browser' :
-                     pushStatus === 'granted' ? '✅ Enabled — you will receive desktop push alerts' :
-                     pushStatus === 'denied' ? '❌ Blocked — enable in your browser settings' :
-                     'Get instant desktop alerts when risk levels change'}
+                    {pushStatus === 'unsupported'
+                      ? 'Not supported in this browser'
+                      : pushStatus === 'granted'
+                        ? '✅ Enabled — you will receive desktop push alerts'
+                        : pushStatus === 'denied'
+                          ? '❌ Blocked — enable in your browser settings'
+                          : 'Get instant desktop alerts when risk levels change'}
                   </p>
                 </div>
-                {pushStatus !== 'granted' && pushStatus !== 'unsupported' && pushStatus !== 'denied' && (
-                  <button type="button" onClick={enablePush} className="text-xs font-medium text-emerald-700 hover:underline px-3 py-1.5 rounded border border-emerald-300 hover:bg-emerald-50">
-                    Enable
-                  </button>
-                )}
+                {pushStatus !== 'granted' &&
+                  pushStatus !== 'unsupported' &&
+                  pushStatus !== 'denied' && (
+                    <button
+                      type="button"
+                      onClick={enablePush}
+                      className="text-xs font-medium text-emerald-700 hover:underline px-3 py-1.5 rounded border border-emerald-300 hover:bg-emerald-50"
+                    >
+                      Enable
+                    </button>
+                  )}
               </div>
-              <button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-5 py-2.5 rounded-lg transition-colors inline-flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">
+              <button
+                type="submit"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-5 py-2.5 rounded-lg transition-colors inline-flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+              >
                 <Mail className="w-4 h-4" aria-hidden="true" />
                 Subscribe
               </button>
@@ -225,7 +291,9 @@ export default function AlertsClient() {
             {alerts.length === 0 ? (
               <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 text-center">
                 <CheckCircle className="w-8 h-8 text-emerald-600 mx-auto mb-2" aria-hidden="true" />
-                <p className="text-sm text-emerald-900 font-medium">No active alerts — all counties within normal range.</p>
+                <p className="text-sm text-emerald-900 font-medium">
+                  No active alerts — all counties within normal range.
+                </p>
               </div>
             ) : (
               alerts.map((alert) => {
@@ -233,10 +301,14 @@ export default function AlertsClient() {
                 return (
                   <div key={alert.id} className={`rounded-xl border p-4 ${s.bg} ${s.border}`}>
                     <div className="flex items-start gap-3">
-                      <span className="text-xl shrink-0" aria-hidden="true">{s.icon}</span>
+                      <span className="text-xl shrink-0" aria-hidden="true">
+                        {s.icon}
+                      </span>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1 flex-wrap">
-                          <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${s.bg} ${s.text} border ${s.border} capitalize`}>
+                          <span
+                            className={`text-xs font-medium px-2 py-0.5 rounded-full ${s.bg} ${s.text} border ${s.border} capitalize`}
+                          >
                             {alert.level}
                           </span>
                           <span className="inline-flex items-center gap-1 text-sm font-bold text-slate-900">
@@ -255,7 +327,11 @@ export default function AlertsClient() {
                           </span>
                         </div>
                       </div>
-                      <button onClick={() => dismissAlert(alert.id)} className="text-slate-400 hover:text-slate-600 text-xs shrink-0" aria-label={`Dismiss ${alert.county} alert`}>
+                      <button
+                        onClick={() => dismissAlert(alert.id)}
+                        className="text-slate-400 hover:text-slate-600 text-xs shrink-0"
+                        aria-label={`Dismiss ${alert.county} alert`}
+                      >
                         ✕
                       </button>
                     </div>
@@ -272,8 +348,19 @@ export default function AlertsClient() {
 
 function CheckCircle({ className }: { className?: string }) {
   return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    <svg
+      className={className}
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={2}
+      stroke="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
     </svg>
   );
 }
