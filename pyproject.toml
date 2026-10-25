@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kam_forecast"
-version = "1.0.0"
+version = "6.0.1"
 description = "An open-source Digital Public Good for predicting acute childhood malnutrition risk in Kenya"
 readme = "README.md"
 authors = [{name = "Community Contributors", email = "contributors@example.com"}]
@@ -55,9 +55,9 @@ testpaths = ["tests"]
 pythonpath = ["."]
 
 [project.urls]
-Homepage = "https://github.com/bucky-ops/Kenya-Childhood-Malnutrition-Risk-Prediction-System"
-Repository = "https://github.com/bucky-ops/Kenya-Childhood-Malnutrition-Risk-Prediction-System"
-"Bug Tracker" = "https://github.com/bucky-ops/Kenya-Childhood-Malnutrition-Risk-Prediction-System/issues"
+Homepage = "https://github.com/collins-muchiri/Kenya-Childhood-Malnutrition-Risk-Prediction-System"
+Repository = "https://github.com/collins-muchiri/Kenya-Childhood-Malnutrition-Risk-Prediction-System"
+"Bug Tracker" = "https://github.com/collins-muchiri/Kenya-Childhood-Malnutrition-Risk-Prediction-System/issues"
 
 [project.scripts]
 kam-forecast = "kam_forecast.__main__:main"
