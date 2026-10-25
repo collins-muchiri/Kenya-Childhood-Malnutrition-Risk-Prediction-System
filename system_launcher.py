@@ -39,7 +39,7 @@ def launch_system_pipeline():
 
     if not raw_data_exists:
         print("No raw data found. Generating test data...")
-        from generate_test_data_simple import generate_test_data
+        from scripts.generate_test_data_simple import generate_test_data
 
         generate_test_data(output_dir="data/raw", num_months=12)
         print("Test data generated successfully!")
