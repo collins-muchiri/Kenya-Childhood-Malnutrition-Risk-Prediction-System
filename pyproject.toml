@@ -9,18 +9,21 @@ description = "An open-source Digital Public Good for predicting acute childhood
 readme = "README.md"
 authors = [{name = "Community Contributors", email = "contributors@example.com"}]
 license = {text = "MIT"}
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
     "pandas>=2.2.0",
+    # security floor: pillow <13 carries published CVEs (CVE-2026-96636..44 etc.);
+    # pillow 13 requires Python >=3.11, which set our support floor (D-007)
+    "pillow>=13.0.0",
     "numpy>=1.21.0",
     "scikit-learn>=1.1.0",
     "matplotlib>=3.5.0",

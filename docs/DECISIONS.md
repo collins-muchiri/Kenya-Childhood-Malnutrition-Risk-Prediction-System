@@ -62,3 +62,19 @@ choose the safest reversible option, record it, keep the tree green, flag in FIN
 - Decision: narrow catch to message-construction errors, log traceback, re-raise as
   RuntimeError. `run_alerts` catches per alert (so one malformed alert cannot drop the
   rest), counts failures, and raises SystemExit if any occurred.
+
+## D-007 (2026-10-25) Support floor raised to Python 3.11; pillow>=13 declared; CI upgrades setuptools
+
+- Context: first CI run of the new gate suite failed at pip-audit on all three
+  matrix jobs: pillow 12.3.0 (22 published CVEs incl. CVE-2026-96636..44,
+  CVE-2026-112391..401; fixed in pillow 13.0.0) and setuptools 79.0.1
+  (PYSEC-2026-3447, GHSA-xmj3-9gf7-h52w; fixed in 83.0.0/84.1.0).
+- Constraint discovered: pillow 13.0.0 requires Python >=3.11. Python 3.10
+  itself reached end-of-life 2026-10-04. A py3.10 environment therefore CANNOT
+  have a vulnerability-free pillow: staying on 3.10 means shipping known-vulnerable
+  imaging code (mission rule 11.7: never weaken security to stay green).
+- Decision: matrix and requires-python now 3.11/3.12/3.13; pillow>=13.0.0
+  declared as an explicit security floor (transitive via matplotlib before);
+  CI install step upgrades pip+setuptools+wheel so the audited environment
+  carries patched tooling. Evidence: run 40196587310 (red), fixed run linked in PR #8.
+- Reversible: yes, but only by re-accepting vulnerable dependencies on 3.10.
