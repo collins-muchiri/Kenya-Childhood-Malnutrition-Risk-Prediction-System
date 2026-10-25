@@ -9,18 +9,21 @@ description = "An open-source Digital Public Good for predicting acute childhood
 readme = "README.md"
 authors = [{name = "Community Contributors", email = "contributors@example.com"}]
 license = {text = "MIT"}
+requires-python = ">=3.11"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-    "pandas>=1.5.0",
+    "pandas>=2.2.0",
+    # security floor: pillow <13 carries published CVEs (CVE-2026-96636..44 etc.);
+    # pillow 13 requires Python >=3.11, which set our support floor (D-007)
+    "pillow>=13.0.0",
     "numpy>=1.21.0",
     "scikit-learn>=1.1.0",
     "matplotlib>=3.5.0",
@@ -40,8 +43,16 @@ dev = [
     "ruff>=0.0.244",
     "mypy>=0.991",
     "pre-commit>=2.20",
-    "pytest-cov>=4.0"
+    "pytest-cov>=4.0",
+    "pip-audit>=2.7"
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Deterministic import contract: repo-root packages (config, src, app) resolve
+# identically under bare `pytest` (CI) and `python -m pytest` (local). Without
+# this, `python -m` masks missing path config because CWD joins sys.path.
+pythonpath = ["."]
 
 [project.urls]
 Homepage = "https://github.com/bucky-ops/Kenya-Childhood-Malnutrition-Risk-Prediction-System"

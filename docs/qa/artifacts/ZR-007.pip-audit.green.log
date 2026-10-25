@@ -1,0 +1,5 @@
+WARNING:pip_audit._dependency_source.pip:pip-audit will run pip against /tmp/venvs/kmal/bin/python, but you have a virtual environment loaded at /opt/arena-python. This may result in unintuitive audits, since your local environment will not be audited. You can forcefully override this behavior by setting PIPAPI_PYTHON_LOCATION to the location of your virtual environment's Python interpreter.
+No known vulnerabilities found
+Name         Skip Reason
+------------ ---------------------------------------------------------------------------
+kam-forecast Dependency not found on PyPI and could not be audited: kam-forecast (1.0.0)

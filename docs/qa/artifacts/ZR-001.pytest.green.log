@@ -1,0 +1,37 @@
+.....................                                                    [100%]
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.15-final-0 _______________
+
+Name                                 Stmts   Miss  Cover
+--------------------------------------------------------
+app/app.py                              53     53     0%
+app/data_quality_app.py                121    121     0%
+app/executive_dashboard.py             105    105     0%
+config/__init__.py                       2      0   100%
+config/config.py                        49      0   100%
+src/__init__.py                          0      0   100%
+src/alerts/__init__.py                   2      2     0%
+src/alerts/data_quality_alerts.py       66     66     0%
+src/data/__init__.py                     3      0   100%
+src/data/clean_data.py                  53     21    60%
+src/data/load_data.py                  111     56    50%
+src/dqr/__init__.py                      2      0   100%
+src/dqr/dqr_mapping.py                  14     10    29%
+src/features/__init__.py                 2      0   100%
+src/features/build_features.py          61     22    64%
+src/models/__init__.py                   3      0   100%
+src/models/predict.py                   74     62    16%
+src/models/train_model.py               74     23    69%
+src/models/train_model_weighted.py      52     52     0%
+src/scoring/__init__.py                  2      0   100%
+src/scoring/compute_scores.py           46     34    26%
+src/utils/__init__.py                    3      0   100%
+src/utils/file_utils.py                 34     11    68%
+src/utils/logging_config.py             23     17    26%
+src/utils/model_utils.py                39     10    74%
+src/validation/__init__.py               2      0   100%
+src/validation/validate_data.py        139     37    73%
+--------------------------------------------------------
+TOTAL                                 1135    702    38%
+Required test coverage of 35% reached. Total coverage: 38.15%
+21 passed in 3.89s

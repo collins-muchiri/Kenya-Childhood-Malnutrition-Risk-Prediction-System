@@ -1,0 +1,48 @@
+
+> kenya-malnutrition-web@1.1.0 build
+> next build
+
+▲ Next.js 16.4.3 (Turbopack)
+✓ Running next.config.js took 37ms
+- Experiments (use with caution):
+  · optimizePackageImports
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead.
+
+  To migrate automatically, run:
+  npx @next/codemod@canary middleware-to-proxy .
+
+  Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 7.6s
+  Running TypeScript ...
+  Finished TypeScript in 10.2s ...
+  Collecting page data using 1 worker ...
+  Generating static pages using 1 worker (0/14) ...
+  Generating static pages using 1 worker (3/14) 
+  Generating static pages using 1 worker (6/14) 
+  Generating static pages using 1 worker (10/14) 
+✓ Generating static pages using 1 worker (14/14) in 946ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /about
+├ ○ /alerts
+├ ƒ /api/alerts/subscribe
+├ ƒ /api/predict
+├ ○ /assess
+├ ○ /blog
+├ ○ /map
+├ ○ /qa
+├ ○ /robots.txt
+├ ○ /sitemap.xml
+└ ○ /stories
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

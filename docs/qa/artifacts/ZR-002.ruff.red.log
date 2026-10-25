@@ -1,0 +1,3350 @@
+I001 [*] Import block is un-sorted or un-formatted
+ --> app/app.py:2:1
+  |
+1 |   # Import necessary libraries for the Streamlit application
+2 | / import streamlit as st  # For creating the web-based dashboard interface
+3 | | import pandas as pd  # For data manipulation and analysis
+4 | | import matplotlib.pyplot as plt  # For creating visualizations
+5 | | from pathlib import Path
+6 | | import sys
+  | |__________^
+7 |
+8 |   # Add project root to path
+  |
+help: Organize imports
+  |
+1 | # Import necessary libraries for the Streamlit application
+  - import streamlit as st  # For creating the web-based dashboard interface
+  - import pandas as pd  # For data manipulation and analysis
+  - import matplotlib.pyplot as plt  # For creating visualizations
+2 + import sys
+3 | from pathlib import Path
+  - import sys
+4 |
+5 + import matplotlib.pyplot as plt  # For creating visualizations
+6 + import pandas as pd  # For data manipulation and analysis
+7 + import streamlit as st  # For creating the web-based dashboard interface
+8 +
+9 | # Add project root to path
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> app/app.py:11:1
+   |
+ 9 | sys.path.insert(0, str(Path(__file__).parent.parent))
+10 |
+11 | from config.config import config
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+12 |
+13 | @st.cache_data
+   |
+help: Organize imports
+   |
+12 |
+13 +
+14 | @st.cache_data
+   |
+
+BLE001 Do not catch blind exception: `Exception`
+  --> app/app.py:34:12
+   |
+32 |         st.error(f"Predictions file not found at {predictions_path}. Run the prediction pipeline first.")
+33 |         return None
+34 |     except Exception as e:
+   |            ^^^^^^^^^
+35 |         st.error(f"Error loading predictions: {e}")
+36 |         return None
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> app/data_quality_app.py:1:1
+  |
+1 | / import streamlit as st
+2 | | import pandas as pd
+3 | | import matplotlib.pyplot as plt
+4 | | import seaborn as sns
+5 | | from datetime import datetime
+6 | | from pathlib import Path
+7 | | import sys
+  | |__________^
+8 |
+9 |   # Add project root to path
+  |
+help: Organize imports
+   |
+   - import streamlit as st
+   - import pandas as pd
+   - import matplotlib.pyplot as plt
+   - import seaborn as sns
+1  + import sys
+2  | from datetime import datetime
+3  | from pathlib import Path
+   - import sys
+4  |
+5  + import matplotlib.pyplot as plt
+6  + import pandas as pd
+7  + import seaborn as sns
+8  + import streamlit as st
+9  +
+10 | # Add project root to path
+   |
+
+F401 [*] `datetime.datetime` imported but unused
+ --> app/data_quality_app.py:5:22
+  |
+3 | import matplotlib.pyplot as plt
+4 | import seaborn as sns
+5 | from datetime import datetime
+  |                      ^^^^^^^^
+6 | from pathlib import Path
+7 | import sys
+  |
+help: Remove unused import: `datetime.datetime`
+  |
+4 | import seaborn as sns
+  - from datetime import datetime
+5 | from pathlib import Path
+  |
+
+BLE001 Do not catch blind exception: `Exception`
+  --> app/data_quality_app.py:34:12
+   |
+32 |         st.error(f"Validation report not found at {validation_path}. Run validation pipeline first.")
+33 |         return pd.DataFrame()
+34 |     except Exception as e:
+   |            ^^^^^^^^^
+35 |         st.error(f"Error loading validation data: {e}")
+36 |         return pd.DataFrame()
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> app/executive_dashboard.py:1:1
+  |
+1 | / import streamlit as st
+2 | | import pandas as pd
+3 | | import matplotlib.pyplot as plt
+4 | | import seaborn as sns
+5 | | from pathlib import Path
+6 | | import sys
+  | |__________^
+7 |
+8 |   # Add project root to path
+  |
+help: Organize imports
+  |
+  - import streamlit as st
+  - import pandas as pd
+1 + import sys
+2 + from pathlib import Path
+3 +
+4 | import matplotlib.pyplot as plt
+5 + import pandas as pd
+6 | import seaborn as sns
+  - from pathlib import Path
+  - import sys
+7 + import streamlit as st
+8 |
+  |
+
+F401 [*] `seaborn` imported but unused
+ --> app/executive_dashboard.py:4:19
+  |
+2 | import pandas as pd
+3 | import matplotlib.pyplot as plt
+4 | import seaborn as sns
+  |                   ^^^
+5 | from pathlib import Path
+6 | import sys
+  |
+help: Remove unused import: `seaborn`
+  |
+3 | import matplotlib.pyplot as plt
+  - import seaborn as sns
+4 | from pathlib import Path
+  |
+
+BLE001 Do not catch blind exception: `Exception`
+  --> app/executive_dashboard.py:37:12
+   |
+35 |         st.error(f"Required data files not found. Run prediction and scoring pipelines first. Error: {e}")
+36 |         return None, None, None
+37 |     except Exception as e:
+   |            ^^^^^^^^^
+38 |         st.error(f"Error loading executive data: {e}")
+39 |         return None, None, None
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> config/config.py:2:1
+  |
+1 |   """Centralized configuration for KAM Forecast project."""
+2 | / from pathlib import Path
+3 | | from dataclasses import dataclass
+4 | | from typing import Dict, List
+  | |_____________________________^
+5 |
+6 |   @dataclass
+  |
+help: Organize imports
+  |
+1 | """Centralized configuration for KAM Forecast project."""
+2 + from dataclasses import dataclass
+3 | from pathlib import Path
+  - from dataclasses import dataclass
+4 | from typing import Dict, List
+5 |
+6 +
+7 | @dataclass
+  |
+
+UP035 `typing.Dict` is deprecated, use `dict` instead
+ --> config/config.py:4:1
+  |
+2 | from pathlib import Path
+3 | from dataclasses import dataclass
+4 | from typing import Dict, List
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+5 |
+6 | @dataclass
+  |
+
+UP035 `typing.List` is deprecated, use `list` instead
+ --> config/config.py:4:1
+  |
+2 | from pathlib import Path
+3 | from dataclasses import dataclass
+4 | from typing import Dict, List
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+5 |
+6 | @dataclass
+  |
+
+UP006 [*] Use `dict` instead of `Dict` for type annotation
+  --> config/config.py:32:19
+   |
+31 |     # Model parameters
+32 |     MODEL_PARAMS: Dict = None
+   |                   ^^^^
+33 |     
+34 |     # Data quality thresholds
+   |
+help: Replace with `dict`
+   |
+31 |     # Model parameters
+   -     MODEL_PARAMS: Dict = None
+32 +     MODEL_PARAMS: dict = None
+33 |     
+   |
+
+UP006 [*] Use `dict` instead of `Dict` for type annotation
+  --> config/config.py:35:25
+   |
+34 |     # Data quality thresholds
+35 |     QUALITY_THRESHOLDS: Dict = None
+   |                         ^^^^
+36 |     
+37 |     # DQR dimension weights
+   |
+help: Replace with `dict`
+   |
+34 |     # Data quality thresholds
+   -     QUALITY_THRESHOLDS: Dict = None
+35 +     QUALITY_THRESHOLDS: dict = None
+36 |     
+   |
+
+UP006 [*] Use `dict` instead of `Dict` for type annotation
+  --> config/config.py:38:18
+   |
+37 |     # DQR dimension weights
+38 |     DQR_WEIGHTS: Dict = None
+   |                  ^^^^
+39 |     
+40 |     # Severity weights
+   |
+help: Replace with `dict`
+   |
+37 |     # DQR dimension weights
+   -     DQR_WEIGHTS: Dict = None
+38 +     DQR_WEIGHTS: dict = None
+39 |     
+   |
+
+UP006 [*] Use `dict` instead of `Dict` for type annotation
+  --> config/config.py:41:23
+   |
+40 |     # Severity weights
+41 |     SEVERITY_WEIGHTS: Dict = None
+   |                       ^^^^
+42 |     
+43 |     # Alert thresholds
+   |
+help: Replace with `dict`
+   |
+40 |     # Severity weights
+   -     SEVERITY_WEIGHTS: Dict = None
+41 +     SEVERITY_WEIGHTS: dict = None
+42 |     
+   |
+
+UP006 [*] Use `dict` instead of `Dict` for type annotation
+  --> config/config.py:44:23
+   |
+43 |     # Alert thresholds
+44 |     ALERT_THRESHOLDS: Dict = None
+   |                       ^^^^
+45 |     
+46 |     # Feature engineering parameters
+   |
+help: Replace with `dict`
+   |
+43 |     # Alert thresholds
+   -     ALERT_THRESHOLDS: Dict = None
+44 +     ALERT_THRESHOLDS: dict = None
+45 |     
+   |
+
+UP006 [*] Use `list` instead of `List` for type annotation
+  --> config/config.py:47:18
+   |
+46 |     # Feature engineering parameters
+47 |     LAG_PERIODS: List[int] = None
+   |                  ^^^^
+48 |     
+49 |     # Email configuration (should use environment variables in production)
+   |
+help: Replace with `list`
+   |
+46 |     # Feature engineering parameters
+   -     LAG_PERIODS: List[int] = None
+47 +     LAG_PERIODS: list[int] = None
+48 |     
+   |
+
+UP006 [*] Use `list` instead of `List` for type annotation
+  --> config/config.py:53:23
+   |
+51 |     SMTP_PORT: int = 587
+52 |     SENDER_EMAIL: str = "alerts@malnutrition-project.org"
+53 |     RECIPIENT_EMAILS: List[str] = None
+   |                       ^^^^
+54 |     
+55 |     def __post_init__(self):
+   |
+help: Replace with `list`
+   |
+52 |     SENDER_EMAIL: str = "alerts@malnutrition-project.org"
+   -     RECIPIENT_EMAILS: List[str] = None
+53 +     RECIPIENT_EMAILS: list[str] = None
+54 |     
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> debug/debug_data_quality.py:6:1
+   |
+ 4 |   This script helps diagnose issues with data quality and validation.
+ 5 |   """
+ 6 | / import sys
+ 7 | | import os
+ 8 | | from pathlib import Path
+ 9 | | import pandas as pd
+10 | | import numpy as np
+11 | | from datetime import datetime
+   | |_____________________________^
+12 |
+13 |   # Add project root to path
+   |
+help: Organize imports
+   |
+5  | """
+6  + import os
+7  | import sys
+   - import os
+8  + from datetime import datetime
+9  | from pathlib import Path
+   - import pandas as pd
+10 +
+11 | import numpy as np
+   - from datetime import datetime
+12 + import pandas as pd
+13 |
+   |
+
+F401 [*] `os` imported but unused
+ --> debug/debug_data_quality.py:7:8
+  |
+5 | """
+6 | import sys
+7 | import os
+  |        ^^
+8 | from pathlib import Path
+9 | import pandas as pd
+  |
+help: Remove unused import: `os`
+  |
+6 | import sys
+  - import os
+7 | from pathlib import Path
+  |
+
+BLE001 Do not catch blind exception: `Exception`
+  --> debug/debug_data_quality.py:61:12
+   |
+59 |         return True
+60 |         
+61 |     except Exception as e:
+   |            ^^^^^^^^^
+62 |         print(f"Error in data quality debug: {e}")
+63 |         import traceback
+   |
+
+BLE001 Do not catch blind exception: `Exception`
+   --> debug/debug_data_quality.py:133:16
+    |
+132 |             return True
+133 |         except Exception as load_error:
+    |                ^^^^^^^^^
+134 |             print(f"Could not load data (this is expected if no real data files exist): {load_error}")
+135 |             print("Creating sample data files for testing...")
+    |
+
+BLE001 Do not catch blind exception: `Exception`
+   --> debug/debug_data_quality.py:189:12
+    |
+187 |             return True
+188 |
+189 |     except Exception as e:
+    |            ^^^^^^^^^
+190 |         print(f"Error in data loading debug: {e}")
+191 |         import traceback
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> debug/debug_system.py:7:1
+   |
+ 5 |   with the system components.
+ 6 |   """
+ 7 | / import sys
+ 8 | | import os
+ 9 | | from pathlib import Path
+10 | | import pandas as pd
+11 | | import numpy as np
+12 | | import traceback
+13 | | from datetime import datetime
+   | |_____________________________^
+14 |
+15 |   # Add project root to path
+   |
+help: Organize imports
+   |
+6  | """
+   - import sys
+7  | import os
+   - from pathlib import Path
+   - import pandas as pd
+   - import numpy as np
+8  + import sys
+9  | import traceback
+10 | from datetime import datetime
+11 + from pathlib import Path
+12 +
+13 + import numpy as np
+14 + import pandas as pd
+15 |
+   |
+
+F541 [*] f-string without any placeholders
+  --> debug/debug_system.py:82:15
+   |
+80 |     try:
+81 |         from config.config import config
+82 |         print(f"SUCCESS: Configuration loaded successfully")
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+83 |         print(f"  Base directory: {config.BASE_DIR}")
+84 |         print(f"  Raw data directory: {config.RAW_DATA_DIR}")
+   |
+help: Remove extraneous `f` prefix
+   |
+81 |         from config.config import config
+   -         print(f"SUCCESS: Configuration loaded successfully")
+82 +         print("SUCCESS: Configuration loaded successfully")
+83 |         print(f"  Base directory: {config.BASE_DIR}")
+   |
+
+BLE001 Do not catch blind exception: `Exception`
+  --> debug/debug_system.py:91:12
+   |
+89 |         print(f"  Quality thresholds: {config.QUALITY_THRESHOLDS}")
+90 |         return True
+91 |     except Exception as e:
+   |            ^^^^^^^^^
+92 |         print(f"FAILED: Configuration error: {e}")
+93 |         traceback.print_exc()
+   |
+
+BLE001 Do not catch blind exception: `Exception`
+   --> debug/debug_system.py:123:20
+    |
+121 |                 print(f"  Created directory: {path}")
+122 |                 success_count += 1
+123 |             except Exception as e:
+    |                    ^^^^^^^^^
+124 |                 print(f"  Failed to create: {e}")
+    |
+
+RUF059 Unpacked variable `model` is never used
+   --> debug/debug_system.py:169:17
+    |
+168 |             if len(limited_data) > 3:
+169 |                 model, metrics = train_model(limited_data, test_size=0.3)
+    |                 ^^^^^
+170 |                 print("SUCCESS: Model training completed")
+171 |                 print(f"  Model MAE: {metrics.get('mae', 'N/A')}")
+    |
+help: Prefix it with an underscore or any other dummy variable pattern
+    |
+168 |             if len(limited_data) > 3:
+    -                 model, metrics = train_model(limited_data, test_size=0.3)
+169 +                 _model, metrics = train_model(limited_data, test_size=0.3)
+170 |                 print("SUCCESS: Model training completed")
+    |
+note: This is an unsafe fix and may change runtime behavior
+
+BLE001 Do not catch blind exception: `Exception`
+   --> debug/debug_system.py:181:12
+    |
+179 |         return True
+180 |         
+181 |     except Exception as e:
+    |            ^^^^^^^^^
+182 |         print(f"FAILED: Sample pipeline failed: {e}")
+183 |         traceback.print_exc()
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> generate_test_data.py:7:1
+   |
+ 5 |   and demonstration without requiring real data from WHO, UNICEF, or DHIS2.
+ 6 |   """
+ 7 | / import pandas as pd
+ 8 | | import numpy as np
+ 9 | | from datetime import datetime, timedelta
+10 | | from pathlib import Path
+11 | | import os
+   | |_________^
+12 |
+13 |   def generate_test_data(output_dir="data/raw", num_months=24):
+   |
+help: Organize imports
+   |
+6  | """
+   - import pandas as pd
+   - import numpy as np
+7  + import os
+8  | from datetime import datetime, timedelta
+9  | from pathlib import Path
+   - import os
+10 |
+11 + import numpy as np
+12 + import pandas as pd
+13 +
+14 +
+15 | def generate_test_data(output_dir="data/raw", num_months=24):
+   |
+
+F401 [*] `os` imported but unused
+  --> generate_test_data.py:11:8
+   |
+ 9 | from datetime import datetime, timedelta
+10 | from pathlib import Path
+11 | import os
+   |        ^^
+12 |
+13 | def generate_test_data(output_dir="data/raw", num_months=24):
+   |
+help: Remove unused import: `os`
+   |
+10 | from pathlib import Path
+   - import os
+11 |
+   |
+
+DTZ002 `datetime.datetime.today()` used
+  --> generate_test_data.py:46:16
+   |
+45 |     # Generate date range
+46 |     end_date = datetime.today()
+   |                ^^^^^^^^^^^^^^^^
+47 |     start_date = end_date - timedelta(days=num_months*30)  # Approximate months
+48 |     dates = pd.date_range(start=start_date, end=end_date, freq='MS')  # Month start
+   |
+help: Use `datetime.datetime.now(tz=...)` instead
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> generate_test_data_corrected.py:7:1
+   |
+ 5 |   and demonstration without requiring real data from WHO, UNICEF, or DHIS2.
+ 6 |   """
+ 7 | / import pandas as pd
+ 8 | | import numpy as np
+ 9 | | from datetime import datetime, timedelta
+10 | | from pathlib import Path
+11 | | import os
+   | |_________^
+12 |
+13 |   def generate_test_data(output_dir="data/raw", num_months=24):
+   |
+help: Organize imports
+   |
+6  | """
+   - import pandas as pd
+   - import numpy as np
+7  + import os
+8  | from datetime import datetime, timedelta
+9  | from pathlib import Path
+   - import os
+10 |
+11 + import numpy as np
+12 + import pandas as pd
+13 +
+14 +
+15 | def generate_test_data(output_dir="data/raw", num_months=24):
+   |
+
+F401 [*] `os` imported but unused
+  --> generate_test_data_corrected.py:11:8
+   |
+ 9 | from datetime import datetime, timedelta
+10 | from pathlib import Path
+11 | import os
+   |        ^^
+12 |
+13 | def generate_test_data(output_dir="data/raw", num_months=24):
+   |
+help: Remove unused import: `os`
+   |
+10 | from pathlib import Path
+   - import os
+11 |
+   |
+
+DTZ002 `datetime.datetime.today()` used
+  --> generate_test_data_corrected.py:46:16
+   |
+45 |     # Generate date range
+46 |     end_date = datetime.today()
+   |                ^^^^^^^^^^^^^^^^
+47 |     start_date = end_date - timedelta(days=num_months*30)  # Approximate months
+48 |     dates = pd.date_range(start=start_date, end=end_date, freq='MS')  # Month start
+   |
+help: Use `datetime.datetime.now(tz=...)` instead
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> generate_test_data_final.py:7:1
+   |
+ 5 |   and demonstration without requiring real data from WHO, UNICEF, or DHIS2.
+ 6 |   """
+ 7 | / import pandas as pd
+ 8 | | import numpy as np
+ 9 | | from datetime import datetime, timedelta
+10 | | from pathlib import Path
+11 | | import os
+   | |_________^
+12 |
+13 |   def generate_test_data(output_dir="data/raw", num_months=24):
+   |
+help: Organize imports
+   |
+6  | """
+   - import pandas as pd
+   - import numpy as np
+7  + import os
+8  | from datetime import datetime, timedelta
+9  | from pathlib import Path
+   - import os
+10 |
+11 + import numpy as np
+12 + import pandas as pd
+13 +
+14 +
+15 | def generate_test_data(output_dir="data/raw", num_months=24):
+   |
+
+F401 [*] `os` imported but unused
+  --> generate_test_data_final.py:11:8
+   |
+ 9 | from datetime import datetime, timedelta
+10 | from pathlib import Path
+11 | import os
+   |        ^^
+12 |
+13 | def generate_test_data(output_dir="data/raw", num_months=24):
+   |
+help: Remove unused import: `os`
+   |
+10 | from pathlib import Path
+   - import os
+11 |
+   |
+
+DTZ002 `datetime.datetime.today()` used
+  --> generate_test_data_final.py:46:16
+   |
+45 |     # Generate date range
+46 |     end_date = datetime.today()
+   |                ^^^^^^^^^^^^^^^^
+47 |     start_date = end_date - timedelta(days=num_months*30)  # Approximate months
+48 |     dates = pd.date_range(start=start_date, end=end_date, freq='MS')  # Month start
+   |
+help: Use `datetime.datetime.now(tz=...)` instead
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> generate_test_data_simple.py:7:1
+   |
+ 5 |   and demonstration without requiring real data from WHO, UNICEF, or DHIS2.
+ 6 |   """
+ 7 | / import pandas as pd
+ 8 | | import numpy as np
+ 9 | | from datetime import datetime, timedelta
+10 | | from pathlib import Path
+11 | | import os
+   | |_________^
+12 |
+13 |   def generate_test_data(output_dir="data/raw", num_months=24):
+   |
+help: Organize imports
+   |
+6  | """
+   - import pandas as pd
+   - import numpy as np
+7  + import os
+8  | from datetime import datetime, timedelta
+9  | from pathlib import Path
+   - import os
+10 |
+11 + import numpy as np
+12 + import pandas as pd
+13 +
+14 +
+15 | def generate_test_data(output_dir="data/raw", num_months=24):
+   |
+
+F401 [*] `os` imported but unused
+  --> generate_test_data_simple.py:11:8
+   |
+ 9 | from datetime import datetime, timedelta
+10 | from pathlib import Path
+11 | import os
+   |        ^^
+12 |
+13 | def generate_test_data(output_dir="data/raw", num_months=24):
+   |
+help: Remove unused import: `os`
+   |
+10 | from pathlib import Path
+   - import os
+11 |
+   |
+
+DTZ002 `datetime.datetime.today()` used
+  --> generate_test_data_simple.py:46:16
+   |
+45 |     # Generate date range
+46 |     end_date = datetime.today()
+   |                ^^^^^^^^^^^^^^^^
+47 |     start_date = end_date - timedelta(days=num_months*30)  # Approximate months
+48 |     dates = pd.date_range(start=start_date, end=end_date, freq='MS')  # Month start
+   |
+help: Use `datetime.datetime.now(tz=...)` instead
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> kam_forecast/__main__.py:18:5
+   |
+17 |       # Import and run the main Streamlit app
+18 | /     import streamlit.web.bootstrap as bootstrap
+19 | |     import streamlit.runtime.secrets as secrets
+20 | |     from app.app import main as app_main
+   | |________________________________________^
+21 |       
+22 |       # Run the main app
+   |
+help: Organize imports
+   |
+17 |     # Import and run the main Streamlit app
+18 +     import streamlit.runtime.secrets as secrets
+19 |     import streamlit.web.bootstrap as bootstrap
+   -     import streamlit.runtime.secrets as secrets
+20 +
+21 |     from app.app import main as app_main
+   |
+
+PLR0402 [*] Use `from streamlit.web import bootstrap` in lieu of alias
+  --> kam_forecast/__main__.py:18:12
+   |
+17 |     # Import and run the main Streamlit app
+18 |     import streamlit.web.bootstrap as bootstrap
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+19 |     import streamlit.runtime.secrets as secrets
+20 |     from app.app import main as app_main
+   |
+help: Replace with `from streamlit.web import bootstrap`
+   |
+17 |     # Import and run the main Streamlit app
+   -     import streamlit.web.bootstrap as bootstrap
+18 +     from streamlit.web import bootstrap
+19 |     import streamlit.runtime.secrets as secrets
+   |
+
+F401 [*] `streamlit.web.bootstrap` imported but unused
+  --> kam_forecast/__main__.py:18:39
+   |
+17 |     # Import and run the main Streamlit app
+18 |     import streamlit.web.bootstrap as bootstrap
+   |                                       ^^^^^^^^^
+19 |     import streamlit.runtime.secrets as secrets
+20 |     from app.app import main as app_main
+   |
+help: Remove unused import: `streamlit.web.bootstrap`
+   |
+17 |     # Import and run the main Streamlit app
+   -     import streamlit.web.bootstrap as bootstrap
+18 |     import streamlit.runtime.secrets as secrets
+   |
+
+PLR0402 [*] Use `from streamlit.runtime import secrets` in lieu of alias
+  --> kam_forecast/__main__.py:19:12
+   |
+17 |     # Import and run the main Streamlit app
+18 |     import streamlit.web.bootstrap as bootstrap
+19 |     import streamlit.runtime.secrets as secrets
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+20 |     from app.app import main as app_main
+   |
+help: Replace with `from streamlit.runtime import secrets`
+   |
+18 |     import streamlit.web.bootstrap as bootstrap
+   -     import streamlit.runtime.secrets as secrets
+19 +     from streamlit.runtime import secrets
+20 |     from app.app import main as app_main
+   |
+
+F401 [*] `streamlit.runtime.secrets` imported but unused
+  --> kam_forecast/__main__.py:19:41
+   |
+17 |     # Import and run the main Streamlit app
+18 |     import streamlit.web.bootstrap as bootstrap
+19 |     import streamlit.runtime.secrets as secrets
+   |                                         ^^^^^^^
+20 |     from app.app import main as app_main
+   |
+help: Remove unused import: `streamlit.runtime.secrets`
+   |
+18 |     import streamlit.web.bootstrap as bootstrap
+   -     import streamlit.runtime.secrets as secrets
+19 |     from app.app import main as app_main
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> run_test_pipeline.py:6:1
+   |
+ 4 |   This script loads the generated test data using the system's pipeline.
+ 5 |   """
+ 6 | / import pandas as pd
+ 7 | | import numpy as np
+ 8 | | from datetime import datetime, timedelta
+ 9 | | from pathlib import Path
+10 | | import sys
+11 | | import os
+   | |_________^
+12 |
+13 |   # Add project root to path for imports
+   |
+help: Organize imports
+   |
+5  | """
+   - import pandas as pd
+   - import numpy as np
+6  + import os
+7  + import sys
+8  | from datetime import datetime, timedelta
+9  | from pathlib import Path
+   - import sys
+   - import os
+10 |
+11 + import numpy as np
+12 + import pandas as pd
+13 +
+14 | # Add project root to path for imports
+   |
+
+F401 [*] `pandas` imported but unused
+ --> run_test_pipeline.py:6:18
+  |
+4 | This script loads the generated test data using the system's pipeline.
+5 | """
+6 | import pandas as pd
+  |                  ^^
+7 | import numpy as np
+8 | from datetime import datetime, timedelta
+  |
+help: Remove unused import: `pandas`
+  |
+5 | """
+  - import pandas as pd
+6 | import numpy as np
+  |
+
+F401 [*] `numpy` imported but unused
+ --> run_test_pipeline.py:7:17
+  |
+5 | """
+6 | import pandas as pd
+7 | import numpy as np
+  |                 ^^
+8 | from datetime import datetime, timedelta
+9 | from pathlib import Path
+  |
+help: Remove unused import: `numpy`
+  |
+6 | import pandas as pd
+  - import numpy as np
+7 | from datetime import datetime, timedelta
+  |
+
+F401 [*] `datetime.datetime` imported but unused
+  --> run_test_pipeline.py:8:22
+   |
+ 6 | import pandas as pd
+ 7 | import numpy as np
+ 8 | from datetime import datetime, timedelta
+   |                      ^^^^^^^^
+ 9 | from pathlib import Path
+10 | import sys
+   |
+help: Remove unused import
+  |
+7 | import numpy as np
+  - from datetime import datetime, timedelta
+8 | from pathlib import Path
+  |
+
+F401 [*] `datetime.timedelta` imported but unused
+  --> run_test_pipeline.py:8:32
+   |
+ 6 | import pandas as pd
+ 7 | import numpy as np
+ 8 | from datetime import datetime, timedelta
+   |                                ^^^^^^^^^
+ 9 | from pathlib import Path
+10 | import sys
+   |
+help: Remove unused import
+  |
+7 | import numpy as np
+  - from datetime import datetime, timedelta
+8 | from pathlib import Path
+  |
+
+F401 [*] `os` imported but unused
+  --> run_test_pipeline.py:11:8
+   |
+ 9 | from pathlib import Path
+10 | import sys
+11 | import os
+   |        ^^
+12 |
+13 | # Add project root to path for imports
+   |
+help: Remove unused import: `os`
+   |
+10 | import sys
+   - import os
+11 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> run_test_pipeline.py:16:1
+   |
+14 |   sys.path.insert(0, str(Path(__file__).parent))
+15 |
+16 | / from src.data.load_data import load_and_merge_data
+17 | | from config.config import config
+   | |________________________________^
+18 |
+19 |   def load_test_data():
+   |
+help: Organize imports
+   |
+15 |
+16 + from config.config import config
+17 | from src.data.load_data import load_and_merge_data
+   - from config.config import config
+18 |
+19 +
+20 | def load_test_data():
+   |
+
+RUF059 Unpacked variable `model` is never used
+  --> run_test_pipeline.py:64:5
+   |
+62 |     # Train model
+63 |     from src.models.train_model import train_model
+64 |     model, metrics = train_model(features_df)
+   |     ^^^^^
+65 |     print(f"Model trained. Metrics: MAE={metrics['mae']:.2f}, R²={metrics['r2']:.3f}")
+   |
+help: Prefix it with an underscore or any other dummy variable pattern
+   |
+63 |     from src.models.train_model import train_model
+   -     model, metrics = train_model(features_df)
+64 +     _model, metrics = train_model(features_df)
+65 |     print(f"Model trained. Metrics: MAE={metrics['mae']:.2f}, R²={metrics['r2']:.3f}")
+   |
+note: This is an unsafe fix and may change runtime behavior
+
+BLE001 Do not catch blind exception: `Exception`
+  --> run_test_pipeline.py:80:12
+   |
+78 |     try:
+79 |         run_full_pipeline()
+80 |     except Exception as e:
+   |            ^^^^^^^^^
+81 |         print(f"Error running pipeline: {e}")
+82 |         import traceback
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/alerts/__init__.py:2:1
+  |
+1 | """Data quality alert modules."""
+2 | from src.alerts.data_quality_alerts import run_alerts, check_data_quality_alerts
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3 |
+4 | __all__ = ['run_alerts', 'check_data_quality_alerts']
+  |
+help: Organize imports
+  |
+1 | """Data quality alert modules."""
+  - from src.alerts.data_quality_alerts import run_alerts, check_data_quality_alerts
+2 + from src.alerts.data_quality_alerts import check_data_quality_alerts, run_alerts
+3 |
+  |
+
+RUF022 [*] `__all__` is not sorted
+ --> src/alerts/__init__.py:4:11
+  |
+2 | from src.alerts.data_quality_alerts import run_alerts, check_data_quality_alerts
+3 |
+4 | __all__ = ['run_alerts', 'check_data_quality_alerts']
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: Apply an isort-style sorting to `__all__`
+  |
+3 |
+  - __all__ = ['run_alerts', 'check_data_quality_alerts']
+4 + __all__ = ['check_data_quality_alerts', 'run_alerts']
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/alerts/data_quality_alerts.py:1:1
+  |
+1 | / import pandas as pd
+2 | | import smtplib
+3 | | from email.mime.text import MIMEText
+4 | | from email.mime.multipart import MIMEMultipart
+5 | | import datetime
+  | |_______________^
+6 |
+7 |   def check_data_quality_alerts():
+  |
+help: Organize imports
+  |
+  - import pandas as pd
+1 + import datetime
+2 | import smtplib
+3 + from email.mime.multipart import MIMEMultipart
+4 | from email.mime.text import MIMEText
+  - from email.mime.multipart import MIMEMultipart
+  - import datetime
+5 |
+6 + import pandas as pd
+7 +
+8 +
+9 | def check_data_quality_alerts():
+  |
+
+F401 [*] `smtplib` imported but unused
+ --> src/alerts/data_quality_alerts.py:2:8
+  |
+1 | import pandas as pd
+2 | import smtplib
+  |        ^^^^^^^
+3 | from email.mime.text import MIMEText
+4 | from email.mime.multipart import MIMEMultipart
+  |
+help: Remove unused import: `smtplib`
+  |
+1 | import pandas as pd
+  - import smtplib
+2 | from email.mime.text import MIMEText
+  |
+
+F841 Local variable `SMTP_SERVER` is assigned to but never used
+  --> src/alerts/data_quality_alerts.py:79:5
+   |
+77 |     """
+78 |     # Email configuration (placeholder - DO NOT hardcode credentials)
+79 |     SMTP_SERVER = 'localhost'  # Placeholder for local SMTP or actual server
+   |     ^^^^^^^^^^^
+80 |     SMTP_PORT = 587
+81 |     SENDER_EMAIL = 'alerts@malnutrition-project.org'
+   |
+help: Remove assignment to unused variable `SMTP_SERVER`
+   |
+78 |     # Email configuration (placeholder - DO NOT hardcode credentials)
+   -     SMTP_SERVER = 'localhost'  # Placeholder for local SMTP or actual server
+79 |     SMTP_PORT = 587
+   |
+note: This is an unsafe fix and may change runtime behavior
+
+F841 Local variable `SMTP_PORT` is assigned to but never used
+  --> src/alerts/data_quality_alerts.py:80:5
+   |
+78 |     # Email configuration (placeholder - DO NOT hardcode credentials)
+79 |     SMTP_SERVER = 'localhost'  # Placeholder for local SMTP or actual server
+80 |     SMTP_PORT = 587
+   |     ^^^^^^^^^
+81 |     SENDER_EMAIL = 'alerts@malnutrition-project.org'
+82 |     RECIPIENT_EMAILS = ['data-officer@county-health.go.ke', 'ngo-monitor@unicef.org']
+   |
+help: Remove assignment to unused variable `SMTP_PORT`
+   |
+79 |     SMTP_SERVER = 'localhost'  # Placeholder for local SMTP or actual server
+   -     SMTP_PORT = 587
+80 |     SENDER_EMAIL = 'alerts@malnutrition-project.org'
+   |
+note: This is an unsafe fix and may change runtime behavior
+
+BLE001 Do not catch blind exception: `Exception`
+   --> src/alerts/data_quality_alerts.py:129:12
+    |
+127 |         print("-" * 50)
+128 |         
+129 |     except Exception as e:
+    |            ^^^^^^^^^
+130 |         print(f"Failed to send email: {e}")
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/data/__init__.py:2:1
+  |
+1 |   """Data loading and processing modules."""
+2 | / from src.data.load_data import load_and_merge_data
+3 | | from src.data.clean_data import clean_data
+  | |__________________________________________^
+4 |
+5 |   __all__ = ['load_and_merge_data', 'clean_data']
+  |
+help: Organize imports
+  |
+1 | """Data loading and processing modules."""
+2 + from src.data.clean_data import clean_data
+3 | from src.data.load_data import load_and_merge_data
+  - from src.data.clean_data import clean_data
+4 |
+  |
+
+RUF022 [*] `__all__` is not sorted
+ --> src/data/__init__.py:5:11
+  |
+3 | from src.data.clean_data import clean_data
+4 |
+5 | __all__ = ['load_and_merge_data', 'clean_data']
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: Apply an isort-style sorting to `__all__`
+  |
+4 |
+  - __all__ = ['load_and_merge_data', 'clean_data']
+5 + __all__ = ['clean_data', 'load_and_merge_data']
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/data/clean_data.py:2:1
+  |
+1 |   """Data cleaning module for KAM Forecast project."""
+2 | / import pandas as pd
+3 | | from sklearn.impute import SimpleImputer
+4 | | from typing import List, Optional
+5 | | import sys
+6 | | from pathlib import Path
+  | |________________________^
+7 |
+8 |   # Add project root to path for imports
+  |
+help: Organize imports
+  |
+1 | """Data cleaning module for KAM Forecast project."""
+  - import pandas as pd
+  - from sklearn.impute import SimpleImputer
+  - from typing import List, Optional
+2 | import sys
+3 | from pathlib import Path
+4 + from typing import List, Optional
+5 +
+6 + import pandas as pd
+7 + from sklearn.impute import SimpleImputer
+8 |
+  |
+
+UP035 `typing.List` is deprecated, use `list` instead
+ --> src/data/clean_data.py:4:1
+  |
+2 | import pandas as pd
+3 | from sklearn.impute import SimpleImputer
+4 | from typing import List, Optional
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+5 | import sys
+6 | from pathlib import Path
+  |
+
+F401 [*] `typing.List` imported but unused
+ --> src/data/clean_data.py:4:20
+  |
+2 | import pandas as pd
+3 | from sklearn.impute import SimpleImputer
+4 | from typing import List, Optional
+  |                    ^^^^
+5 | import sys
+6 | from pathlib import Path
+  |
+help: Remove unused import
+  |
+3 | from sklearn.impute import SimpleImputer
+  - from typing import List, Optional
+4 | import sys
+  |
+
+F401 [*] `typing.Optional` imported but unused
+ --> src/data/clean_data.py:4:26
+  |
+2 | import pandas as pd
+3 | from sklearn.impute import SimpleImputer
+4 | from typing import List, Optional
+  |                          ^^^^^^^^
+5 | import sys
+6 | from pathlib import Path
+  |
+help: Remove unused import
+  |
+3 | from sklearn.impute import SimpleImputer
+  - from typing import List, Optional
+4 | import sys
+  |
+
+F401 [*] `config.config.config` imported but unused
+  --> src/data/clean_data.py:11:27
+   |
+ 9 | sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+10 |
+11 | from config.config import config
+   |                           ^^^^^^
+12 | from src.utils.logging_config import get_logger
+   |
+help: Remove unused import: `config.config.config`
+   |
+10 |
+   - from config.config import config
+11 | from src.utils.logging_config import get_logger
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src/data/clean_data.py:83:5
+   |
+82 |   if __name__ == "__main__":
+83 | /     from src.utils.logging_config import setup_logging
+84 | |     from src.data.load_data import load_and_merge_data
+   | |______________________________________________________^
+85 |       
+86 |       setup_logging()
+   |
+help: Organize imports
+   |
+82 | if __name__ == "__main__":
+83 +     from src.data.load_data import load_and_merge_data
+84 |     from src.utils.logging_config import setup_logging
+   -     from src.data.load_data import load_and_merge_data
+85 |     
+   |
+
+F541 [*] f-string without any placeholders
+  --> src/data/clean_data.py:91:21
+   |
+89 |         raw_df = load_and_merge_data()
+90 |         clean_df = clean_data(raw_df)
+91 |         logger.info(f"Successfully cleaned data")
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+92 |         print(f"\nCleaned data shape: {clean_df.shape}")
+93 |         print(f"Missing values remaining: {clean_df.isnull().sum().sum()}")
+   |
+help: Remove extraneous `f` prefix
+   |
+90 |         clean_df = clean_data(raw_df)
+   -         logger.info(f"Successfully cleaned data")
+91 +         logger.info("Successfully cleaned data")
+92 |         print(f"\nCleaned data shape: {clean_df.shape}")
+   |
+
+F541 [*] f-string without any placeholders
+  --> src/data/clean_data.py:94:15
+   |
+92 |         print(f"\nCleaned data shape: {clean_df.shape}")
+93 |         print(f"Missing values remaining: {clean_df.isnull().sum().sum()}")
+94 |         print(f"\nFirst few rows:")
+   |               ^^^^^^^^^^^^^^^^^^^^
+95 |         print(clean_df.head())
+96 |     except Exception as e:
+   |
+help: Remove extraneous `f` prefix
+   |
+93 |         print(f"Missing values remaining: {clean_df.isnull().sum().sum()}")
+   -         print(f"\nFirst few rows:")
+94 +         print("\nFirst few rows:")
+95 |         print(clean_df.head())
+   |
+
+BLE001 Do not catch blind exception: `Exception`
+  --> src/data/clean_data.py:96:12
+   |
+94 |         print(f"\nFirst few rows:")
+95 |         print(clean_df.head())
+96 |     except Exception as e:
+   |            ^^^^^^^^^
+97 |         logger.error(f"Failed to clean data: {e}")
+98 |         print(f"Error: {e}")
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/data/load_data.py:2:1
+  |
+1 |   """Data loading module for KAM Forecast project."""
+2 | / import pandas as pd
+3 | | from pathlib import Path
+4 | | from typing import Optional
+5 | | import sys
+6 | | import os
+  | |_________^
+7 |
+8 |   # Add project root to path for imports
+  |
+help: Organize imports
+  |
+1 | """Data loading module for KAM Forecast project."""
+  - import pandas as pd
+2 + import os
+3 + import sys
+4 | from pathlib import Path
+5 | from typing import Optional
+  - import sys
+  - import os
+6 |
+7 + import pandas as pd
+8 +
+9 | # Add project root to path for imports
+  |
+
+F401 [*] `os` imported but unused
+ --> src/data/load_data.py:6:8
+  |
+4 | from typing import Optional
+5 | import sys
+6 | import os
+  |        ^^
+7 |
+8 | # Add project root to path for imports
+  |
+help: Remove unused import: `os`
+  |
+5 | import sys
+  - import os
+6 |
+  |
+
+UP045 [*] Use `X | None` for type annotations
+  --> src/data/load_data.py:16:62
+   |
+14 | logger = get_logger(__name__)
+15 |
+16 | def load_data_file(filepath: Path, required: bool = True) -> Optional[pd.DataFrame]:
+   |                                                              ^^^^^^^^^^^^^^^^^^^^^^
+17 |     """
+18 |     Load a data file, supporting both CSV and Excel formats.
+   |
+help: Convert to `X | None`
+   |
+15 |
+   - def load_data_file(filepath: Path, required: bool = True) -> Optional[pd.DataFrame]:
+16 + def load_data_file(filepath: Path, required: bool = True) -> pd.DataFrame | None:
+17 |     """
+   |
+
+UP024 [*] Replace aliased errors with `OSError`
+  --> src/data/load_data.py:56:15
+   |
+54 |     except Exception as e:
+55 |         logger.error(f"Failed to load data file {filepath}: {e}")
+56 |         raise IOError(f"Failed to load data file: {e}") from e
+   |               ^^^^^^^
+57 |
+58 | def load_and_merge_data(
+   |
+help: Replace `IOError` with builtin `OSError`
+   |
+55 |         logger.error(f"Failed to load data file {filepath}: {e}")
+   -         raise IOError(f"Failed to load data file: {e}") from e
+56 +         raise OSError(f"Failed to load data file: {e}") from e
+57 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> src/data/load_data.py:59:15
+   |
+58 | def load_and_merge_data(
+59 |     data_dir: Optional[Path] = None,
+   |               ^^^^^^^^^^^^^^
+60 |     who_file: Optional[str] = None,
+61 |     unicef_file: Optional[str] = None,
+   |
+help: Convert to `X | None`
+   |
+58 | def load_and_merge_data(
+   -     data_dir: Optional[Path] = None,
+59 +     data_dir: Path | None = None,
+60 |     who_file: Optional[str] = None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> src/data/load_data.py:60:15
+   |
+58 | def load_and_merge_data(
+59 |     data_dir: Optional[Path] = None,
+60 |     who_file: Optional[str] = None,
+   |               ^^^^^^^^^^^^^
+61 |     unicef_file: Optional[str] = None,
+62 |     dhis2_file: Optional[str] = None
+   |
+help: Convert to `X | None`
+   |
+59 |     data_dir: Optional[Path] = None,
+   -     who_file: Optional[str] = None,
+60 +     who_file: str | None = None,
+61 |     unicef_file: Optional[str] = None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> src/data/load_data.py:61:18
+   |
+59 |     data_dir: Optional[Path] = None,
+60 |     who_file: Optional[str] = None,
+61 |     unicef_file: Optional[str] = None,
+   |                  ^^^^^^^^^^^^^
+62 |     dhis2_file: Optional[str] = None
+63 | ) -> pd.DataFrame:
+   |
+help: Convert to `X | None`
+   |
+60 |     who_file: Optional[str] = None,
+   -     unicef_file: Optional[str] = None,
+61 +     unicef_file: str | None = None,
+62 |     dhis2_file: Optional[str] = None
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> src/data/load_data.py:62:17
+   |
+60 |     who_file: Optional[str] = None,
+61 |     unicef_file: Optional[str] = None,
+62 |     dhis2_file: Optional[str] = None
+   |                 ^^^^^^^^^^^^^
+63 | ) -> pd.DataFrame:
+64 |     """
+   |
+help: Convert to `X | None`
+   |
+61 |     unicef_file: Optional[str] = None,
+   -     dhis2_file: Optional[str] = None
+62 +     dhis2_file: str | None = None
+63 | ) -> pd.DataFrame:
+   |
+
+F841 Local variable `df_columns_lower` is assigned to but never used
+   --> src/data/load_data.py:124:13
+    |
+122 |             # Validate required columns (check if they exist, case-insensitive)
+123 |             required_cols = ['sub_county', 'county', 'date']
+124 |             df_columns_lower = [col.lower() for col in df.columns]
+    |             ^^^^^^^^^^^^^^^^
+125 |             
+126 |             # Check for required columns (case-insensitive)
+    |
+help: Remove assignment to unused variable `df_columns_lower`
+    |
+123 |             required_cols = ['sub_county', 'county', 'date']
+    -             df_columns_lower = [col.lower() for col in df.columns]
+124 +             [col.lower() for col in df.columns]
+125 |             
+    |
+note: This is an unsafe fix and may change runtime behavior
+
+UP024 [*] Replace aliased errors with `OSError`
+   --> src/data/load_data.py:171:19
+    |
+169 |             error_msg = f"Failed to load {source} data from {filepath}: {e}"
+170 |             logger.error(error_msg)
+171 |             raise IOError(error_msg) from e
+    |                   ^^^^^^^
+172 |     
+173 |     # Merge datasets with validation
+    |
+help: Replace `IOError` with builtin `OSError`
+    |
+170 |             logger.error(error_msg)
+    -             raise IOError(error_msg) from e
+171 +             raise OSError(error_msg) from e
+172 |     
+    |
+
+UP024 [*] Replace aliased errors with `OSError`
+   --> src/data/load_data.py:203:15
+    |
+201 |         error_msg = f"Failed to merge data: {e}"
+202 |         logger.error(error_msg)
+203 |         raise IOError(error_msg) from e
+    |               ^^^^^^^
+204 |
+205 | # If this script is run directly (not imported), execute a test load
+    |
+help: Replace `IOError` with builtin `OSError`
+    |
+202 |         logger.error(error_msg)
+    -         raise IOError(error_msg) from e
+203 +         raise OSError(error_msg) from e
+204 |
+    |
+
+F541 [*] f-string without any placeholders
+   --> src/data/load_data.py:214:15
+    |
+212 |         logger.info(f"Successfully loaded data with shape: {df.shape}")
+213 |         print(f"\nLoaded data with shape: {df.shape}")
+214 |         print(f"\nFirst few rows:")
+    |               ^^^^^^^^^^^^^^^^^^^^
+215 |         print(df.head())
+216 |         print(f"\nColumn names: {list(df.columns)}")
+    |
+help: Remove extraneous `f` prefix
+    |
+213 |         print(f"\nLoaded data with shape: {df.shape}")
+    -         print(f"\nFirst few rows:")
+214 +         print("\nFirst few rows:")
+215 |         print(df.head())
+    |
+
+BLE001 Do not catch blind exception: `Exception`
+   --> src/data/load_data.py:218:12
+    |
+216 |         print(f"\nColumn names: {list(df.columns)}")
+217 |         print(f"\nDate range: {df['date'].min()} to {df['date'].max()}")
+218 |     except Exception as e:
+    |            ^^^^^^^^^
+219 |         logger.error(f"Failed to load data: {e}")
+220 |         print(f"Error: {e}")
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/dqr/dqr_mapping.py:1:1
+  |
+1 | import pandas as pd
+  | ^^^^^^^^^^^^^^^^^^^
+2 |
+3 | def map_issue_to_dqr_dimension(issue_type):
+  |
+help: Organize imports
+  |
+2 |
+3 +
+4 | def map_issue_to_dqr_dimension(issue_type):
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/features/build_features.py:2:1
+  |
+1 |   """Feature engineering module for KAM Forecast project."""
+2 | / import pandas as pd
+3 | | from typing import List, Optional
+4 | | import sys
+5 | | from pathlib import Path
+  | |________________________^
+6 |
+7 |   # Add project root to path for imports
+  |
+help: Organize imports
+  |
+1 | """Feature engineering module for KAM Forecast project."""
+  - import pandas as pd
+  - from typing import List, Optional
+2 | import sys
+3 | from pathlib import Path
+4 + from typing import List, Optional
+5 +
+6 + import pandas as pd
+7 |
+  |
+
+UP035 `typing.List` is deprecated, use `list` instead
+ --> src/features/build_features.py:3:1
+  |
+1 | """Feature engineering module for KAM Forecast project."""
+2 | import pandas as pd
+3 | from typing import List, Optional
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+4 | import sys
+5 | from pathlib import Path
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src/features/build_features.py:10:1
+   |
+ 8 |   sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+ 9 |
+10 | / from config.config import config
+11 | | from src.utils.logging_config import get_logger
+12 | | from src.utils.file_utils import save_dataframe
+   | |_______________________________________________^
+13 |
+14 |   logger = get_logger(__name__)
+   |
+help: Organize imports
+   |
+10 | from config.config import config
+11 + from src.utils.file_utils import save_dataframe
+12 | from src.utils.logging_config import get_logger
+   - from src.utils.file_utils import save_dataframe
+13 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> src/features/build_features.py:19:18
+   |
+17 |     df: pd.DataFrame,
+18 |     target_col: str = 'acute_malnutrition_cases',
+19 |     lag_periods: Optional[List[int]] = None,
+   |                  ^^^^^^^^^^^^^^^^^^^
+20 |     save_features: bool = False
+21 | ) -> pd.DataFrame:
+   |
+help: Convert to `X | None`
+   |
+18 |     target_col: str = 'acute_malnutrition_cases',
+   -     lag_periods: Optional[List[int]] = None,
+19 +     lag_periods: List[int] | None = None,
+20 |     save_features: bool = False
+   |
+
+UP006 [*] Use `list` instead of `List` for type annotation
+  --> src/features/build_features.py:19:27
+   |
+17 |     df: pd.DataFrame,
+18 |     target_col: str = 'acute_malnutrition_cases',
+19 |     lag_periods: Optional[List[int]] = None,
+   |                           ^^^^
+20 |     save_features: bool = False
+21 | ) -> pd.DataFrame:
+   |
+help: Replace with `list`
+   |
+18 |     target_col: str = 'acute_malnutrition_cases',
+   -     lag_periods: Optional[List[int]] = None,
+19 +     lag_periods: Optional[list[int]] = None,
+20 |     save_features: bool = False
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+   --> src/features/build_features.py:98:5
+    |
+ 97 |   if __name__ == "__main__":
+ 98 | /     from src.utils.logging_config import setup_logging
+ 99 | |     from src.data.load_data import load_and_merge_data
+100 | |     from src.data.clean_data import clean_data
+    | |______________________________________________^
+101 |       
+102 |       setup_logging()
+    |
+help: Organize imports
+    |
+97  | if __name__ == "__main__":
+98  +     from src.data.clean_data import clean_data
+99  +     from src.data.load_data import load_and_merge_data
+100 |     from src.utils.logging_config import setup_logging
+    -     from src.data.load_data import load_and_merge_data
+    -     from src.data.clean_data import clean_data
+101 |     
+    |
+
+BLE001 Do not catch blind exception: `Exception`
+   --> src/features/build_features.py:113:12
+    |
+111 |         print(f"Created {len(lag_features)} lag features")
+112 |         print(f"\nNew features: {lag_features[:10]}...")  # Show first 10
+113 |     except Exception as e:
+    |            ^^^^^^^^^
+114 |         logger.error(f"Failed to build features: {e}")
+115 |         print(f"Error: {e}")
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/governance/dpg_packaging.py:1:1
+  |
+1 | import os
+  | ^^^^^^^^^
+2 |
+3 | def create_license():
+  |
+help: Organize imports
+  |
+2 |
+3 +
+4 | def create_license():
+  |
+
+F401 [*] `os` imported but unused
+ --> src/governance/dpg_packaging.py:1:8
+  |
+1 | import os
+  |        ^^
+2 |
+3 | def create_license():
+  |
+help: Remove unused import: `os`
+  |
+  - import os
+1 |
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/reporting/generate_donor_deck.py:1:1
+  |
+1 | / import pandas as pd
+2 | | import matplotlib.pyplot as plt
+3 | | import seaborn as sns
+4 | | from pptx import Presentation
+5 | | from pptx.util import Inches
+6 | | from pptx.enum.text import PP_ALIGN
+7 | | import os
+  | |_________^
+8 |
+9 |   def create_donor_pitch_deck():
+  |
+help: Organize imports
+   |
+1  + import os
+2  +
+3  + import matplotlib.pyplot as plt
+4  | import pandas as pd
+   - import matplotlib.pyplot as plt
+5  | import seaborn as sns
+6  | from pptx import Presentation
+7  + from pptx.enum.text import PP_ALIGN
+8  | from pptx.util import Inches
+   - from pptx.enum.text import PP_ALIGN
+   - import os
+9  |
+10 +
+11 | def create_donor_pitch_deck():
+   |
+
+F401 [*] `seaborn` imported but unused
+ --> src/reporting/generate_donor_deck.py:3:19
+  |
+1 | import pandas as pd
+2 | import matplotlib.pyplot as plt
+3 | import seaborn as sns
+  |                   ^^^
+4 | from pptx import Presentation
+5 | from pptx.util import Inches
+  |
+help: Remove unused import: `seaborn`
+  |
+2 | import matplotlib.pyplot as plt
+  - import seaborn as sns
+3 | from pptx import Presentation
+  |
+
+F401 [*] `pptx.enum.text.PP_ALIGN` imported but unused
+ --> src/reporting/generate_donor_deck.py:6:28
+  |
+4 | from pptx import Presentation
+5 | from pptx.util import Inches
+6 | from pptx.enum.text import PP_ALIGN
+  |                            ^^^^^^^^
+7 | import os
+  |
+help: Remove unused import: `pptx.enum.text.PP_ALIGN`
+  |
+5 | from pptx.util import Inches
+  - from pptx.enum.text import PP_ALIGN
+6 | import os
+  |
+
+RUF059 Unpacked variable `fig` is never used
+   --> src/reporting/generate_donor_deck.py:121:5
+    |
+119 |     county_summary = county_summary.sort_values('predicted_cases', ascending=True)
+120 |     
+121 |     fig, ax = plt.subplots(figsize=(8, 10))
+    |     ^^^
+122 |     bars = ax.barh(county_summary['county'], county_summary['predicted_cases'])
+    |
+help: Prefix it with an underscore or any other dummy variable pattern
+    |
+120 |     
+    -     fig, ax = plt.subplots(figsize=(8, 10))
+121 +     _fig, ax = plt.subplots(figsize=(8, 10))
+122 |     bars = ax.barh(county_summary['county'], county_summary['predicted_cases'])
+    |
+note: This is an unsafe fix and may change runtime behavior
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src/reporting/generate_pdf_report.py:1:1
+   |
+ 1 | / import pandas as pd
+ 2 | | import matplotlib.pyplot as plt
+ 3 | | import seaborn as sns
+ 4 | | from reportlab.lib.pagesizes import letter
+ 5 | | from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+ 6 | | from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Table, TableStyle
+ 7 | | from reportlab.lib import colors
+ 8 | | from reportlab.lib.units import inch
+ 9 | | import os
+10 | | from datetime import datetime
+11 | | from src.dqr.dqr_mapping import add_dqr_dimensions
+12 | | from src.scoring.compute_scores import compute_data_quality_scores
+   | |__________________________________________________________________^
+13 |
+14 |   def generate_monthly_pdf_report(report_month):
+   |
+help: Organize imports
+   |
+1  + import os
+2  + from datetime import datetime
+3  +
+4  + import matplotlib.pyplot as plt
+5  | import pandas as pd
+   - import matplotlib.pyplot as plt
+6  | import seaborn as sns
+   - from reportlab.lib.pagesizes import letter
+   - from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+   - from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Table, TableStyle
+7  | from reportlab.lib import colors
+8  + from reportlab.lib.pagesizes import letter
+9  + from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+10 | from reportlab.lib.units import inch
+   - import os
+   - from datetime import datetime
+11 + from reportlab.platypus import (
+12 +     Image,
+13 +     Paragraph,
+14 +     SimpleDocTemplate,
+15 +     Spacer,
+16 +     Table,
+17 +     TableStyle,
+18 + )
+19 +
+20 | from src.dqr.dqr_mapping import add_dqr_dimensions
+21 | from src.scoring.compute_scores import compute_data_quality_scores
+22 |
+23 +
+24 | def generate_monthly_pdf_report(report_month):
+   |
+
+F401 [*] `seaborn` imported but unused
+ --> src/reporting/generate_pdf_report.py:3:19
+  |
+1 | import pandas as pd
+2 | import matplotlib.pyplot as plt
+3 | import seaborn as sns
+  |                   ^^^
+4 | from reportlab.lib.pagesizes import letter
+5 | from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+  |
+help: Remove unused import: `seaborn`
+  |
+2 | import matplotlib.pyplot as plt
+  - import seaborn as sns
+3 | from reportlab.lib.pagesizes import letter
+  |
+
+F401 [*] `datetime.datetime` imported but unused
+  --> src/reporting/generate_pdf_report.py:10:22
+   |
+ 8 | from reportlab.lib.units import inch
+ 9 | import os
+10 | from datetime import datetime
+   |                      ^^^^^^^^
+11 | from src.dqr.dqr_mapping import add_dqr_dimensions
+12 | from src.scoring.compute_scores import compute_data_quality_scores
+   |
+help: Remove unused import: `datetime.datetime`
+   |
+9  | import os
+   - from datetime import datetime
+10 | from src.dqr.dqr_mapping import add_dqr_dimensions
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/scenarios/simulate_scenarios.py:1:1
+  |
+1 | / import pandas as pd
+2 | | import numpy as np
+3 | | import os
+  | |_________^
+4 |
+5 |   def simulate_funding_increase(predictions_df, increase_percentage):
+  |
+help: Organize imports
+  |
+1 + import os
+2 +
+3 + import numpy as np
+4 | import pandas as pd
+  - import numpy as np
+  - import os
+5 |
+6 +
+7 | def simulate_funding_increase(predictions_df, increase_percentage):
+  |
+
+F401 [*] `numpy` imported but unused
+ --> src/scenarios/simulate_scenarios.py:2:17
+  |
+1 | import pandas as pd
+2 | import numpy as np
+  |                 ^^
+3 | import os
+  |
+help: Remove unused import: `numpy`
+  |
+1 | import pandas as pd
+  - import numpy as np
+2 | import os
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/scoring/compute_scores.py:2:1
+  |
+1 |   """Data quality scoring module for KAM Forecast project."""
+2 | / import pandas as pd
+3 | | from typing import Dict
+4 | | import sys
+5 | | from pathlib import Path
+  | |________________________^
+6 |
+7 |   # Add project root to path for imports
+  |
+help: Organize imports
+  |
+1 | """Data quality scoring module for KAM Forecast project."""
+  - import pandas as pd
+  - from typing import Dict
+2 | import sys
+3 | from pathlib import Path
+4 + from typing import Dict
+5 +
+6 + import pandas as pd
+7 |
+  |
+
+UP035 `typing.Dict` is deprecated, use `dict` instead
+ --> src/scoring/compute_scores.py:3:1
+  |
+1 | """Data quality scoring module for KAM Forecast project."""
+2 | import pandas as pd
+3 | from typing import Dict
+  | ^^^^^^^^^^^^^^^^^^^^^^^
+4 | import sys
+5 | from pathlib import Path
+  |
+
+F401 [*] `typing.Dict` imported but unused
+ --> src/scoring/compute_scores.py:3:20
+  |
+1 | """Data quality scoring module for KAM Forecast project."""
+2 | import pandas as pd
+3 | from typing import Dict
+  |                    ^^^^
+4 | import sys
+5 | from pathlib import Path
+  |
+help: Remove unused import: `typing.Dict`
+  |
+2 | import pandas as pd
+  - from typing import Dict
+3 | import sys
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src/scoring/compute_scores.py:10:1
+   |
+ 8 |   sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+ 9 |
+10 | / from config.config import config
+11 | | from src.utils.logging_config import get_logger
+12 | | from src.utils.file_utils import load_dataframe, save_dataframe
+13 | | from src.dqr.dqr_mapping import add_dqr_dimensions
+   | |__________________________________________________^
+14 |
+15 |   logger = get_logger(__name__)
+   |
+help: Organize imports
+   |
+10 | from config.config import config
+11 + from src.dqr.dqr_mapping import add_dqr_dimensions
+12 + from src.utils.file_utils import load_dataframe, save_dataframe
+13 | from src.utils.logging_config import get_logger
+   - from src.utils.file_utils import load_dataframe, save_dataframe
+   - from src.dqr.dqr_mapping import add_dqr_dimensions
+14 |
+   |
+
+BLE001 Do not catch blind exception: `Exception`
+  --> src/scoring/compute_scores.py:92:12
+   |
+90 |         if not scores_df.empty:
+91 |             print(f"Score range: {scores_df['score'].min()} - {scores_df['score'].max()}")
+92 |     except Exception as e:
+   |            ^^^^^^^^^
+93 |         logger.error(f"Failed to compute scores: {e}")
+94 |         print(f"Error: {e}")
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/system/system_health_check.py:1:1
+  |
+1 | / import os
+2 | | import sys
+3 | | import subprocess
+4 | | import importlib.util
+  | |_____________________^
+5 |
+6 |   def check_directory_integrity():
+  |
+help: Organize imports
+  |
+1 + import importlib.util
+2 | import os
+  - import sys
+3 | import subprocess
+  - import importlib.util
+4 + import sys
+5 +
+6 |
+  |
+
+F401 [*] `subprocess` imported but unused
+ --> src/system/system_health_check.py:3:8
+  |
+1 | import os
+2 | import sys
+3 | import subprocess
+  |        ^^^^^^^^^^
+4 | import importlib.util
+  |
+help: Remove unused import: `subprocess`
+  |
+2 | import sys
+  - import subprocess
+3 | import importlib.util
+  |
+
+F821 Undefined name `pd`
+   --> src/system/system_health_check.py:108:26
+    |
+106 |             if file_path.endswith('.csv'):
+107 |                 try:
+108 |                     df = pd.read_csv(file_path, nrows=5)  # Read first 5 rows
+    |                          ^^
+109 |                     if df.empty:
+110 |                         invalid_files.append(f"{file_path} (empty)")
+    |
+
+BLE001 Do not catch blind exception: `Exception`
+   --> src/system/system_health_check.py:111:24
+    |
+109 |                     if df.empty:
+110 |                         invalid_files.append(f"{file_path} (empty)")
+111 |                 except Exception as e:
+    |                        ^^^^^^^^^
+112 |                     invalid_files.append(f"{file_path} (read error: {e})")
+    |
+
+BLE001 Do not catch blind exception: `Exception`
+   --> src/system/system_health_check.py:149:16
+    |
+147 |         try:
+148 |             importlib.import_module(module_path)
+149 |         except Exception as e:
+    |                ^^^^^^^^^
+150 |             failed_modules.append(f"{description}: {str(e)}")
+    |
+
+RUF010 [*] Use explicit conversion flag
+   --> src/system/system_health_check.py:150:53
+    |
+148 |             importlib.import_module(module_path)
+149 |         except Exception as e:
+150 |             failed_modules.append(f"{description}: {str(e)}")
+    |                                                     ^^^^^^
+151 |
+152 |     return {
+    |
+help: Replace with conversion flag
+    |
+149 |         except Exception as e:
+    -             failed_modules.append(f"{description}: {str(e)}")
+150 +             failed_modules.append(f"{description}: {e!s}")
+151 |
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/uncertainty/compute_uncertainty.py:1:1
+  |
+1 | / import pandas as pd
+2 | | import numpy as np
+3 | | import pickle
+4 | | import os
+  | |_________^
+5 |
+6 |   def compute_prediction_uncertainty():
+  |
+help: Organize imports
+  |
+1 + import os
+2 + import pickle
+3 +
+4 + import numpy as np
+5 | import pandas as pd
+  - import numpy as np
+  - import pickle
+  - import os
+6 |
+7 +
+8 | def compute_prediction_uncertainty():
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/utils/__init__.py:2:1
+  |
+1 |   """Utility modules for KAM Forecast project."""
+2 | / from src.utils.logging_config import setup_logging
+3 | | from src.utils.file_utils import ensure_directory, save_dataframe, load_dataframe
+  | |_________________________________________________________________________________^
+4 |
+5 |   __all__ = ['setup_logging', 'ensure_directory', 'save_dataframe', 'load_dataframe']
+  |
+help: Organize imports
+  |
+1 | """Utility modules for KAM Forecast project."""
+2 + from src.utils.file_utils import ensure_directory, load_dataframe, save_dataframe
+3 | from src.utils.logging_config import setup_logging
+  - from src.utils.file_utils import ensure_directory, save_dataframe, load_dataframe
+4 |
+  |
+
+RUF022 [*] `__all__` is not sorted
+ --> src/utils/__init__.py:5:11
+  |
+3 | from src.utils.file_utils import ensure_directory, save_dataframe, load_dataframe
+4 |
+5 | __all__ = ['setup_logging', 'ensure_directory', 'save_dataframe', 'load_dataframe']
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: Apply an isort-style sorting to `__all__`
+  |
+4 |
+  - __all__ = ['setup_logging', 'ensure_directory', 'save_dataframe', 'load_dataframe']
+5 + __all__ = ['ensure_directory', 'load_dataframe', 'save_dataframe', 'setup_logging']
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/utils/file_utils.py:2:1
+  |
+1 |   """File utility functions."""
+2 | / import pandas as pd
+3 | | from pathlib import Path
+4 | | from typing import Optional, Union
+5 | | import logging
+  | |______________^
+6 |
+7 |   logger = logging.getLogger(__name__)
+  |
+help: Organize imports
+  |
+1 | """File utility functions."""
+  - import pandas as pd
+2 + import logging
+3 | from pathlib import Path
+4 | from typing import Optional, Union
+  - import logging
+5 |
+6 + import pandas as pd
+7 +
+8 | logger = logging.getLogger(__name__)
+  |
+
+UP007 [*] Use `X | Y` for type annotations
+  --> src/utils/file_utils.py:9:33
+   |
+ 7 | logger = logging.getLogger(__name__)
+ 8 |
+ 9 | def ensure_directory(directory: Union[str, Path]) -> Path:
+   |                                 ^^^^^^^^^^^^^^^^
+10 |     """
+11 |     Ensure a directory exists, creating it if necessary.
+   |
+help: Convert to `X | Y`
+   |
+8  |
+   - def ensure_directory(directory: Union[str, Path]) -> Path:
+9  + def ensure_directory(directory: str | Path) -> Path:
+10 |     """
+   |
+
+UP007 [*] Use `X | Y` for type annotations
+  --> src/utils/file_utils.py:25:15
+   |
+23 | def save_dataframe(
+24 |     df: pd.DataFrame,
+25 |     filepath: Union[str, Path],
+   |               ^^^^^^^^^^^^^^^^
+26 |     index: bool = False,
+27 |     **kwargs
+   |
+help: Convert to `X | Y`
+   |
+24 |     df: pd.DataFrame,
+   -     filepath: Union[str, Path],
+25 +     filepath: str | Path,
+26 |     index: bool = False,
+   |
+
+UP024 [*] Replace aliased errors with `OSError`
+  --> src/utils/file_utils.py:59:15
+   |
+57 |     except Exception as e:
+58 |         logger.error(f"Failed to save dataframe to {filepath}: {e}")
+59 |         raise IOError(f"Failed to save dataframe: {e}") from e
+   |               ^^^^^^^
+60 |
+61 | def load_dataframe(
+   |
+help: Replace `IOError` with builtin `OSError`
+   |
+58 |         logger.error(f"Failed to save dataframe to {filepath}: {e}")
+   -         raise IOError(f"Failed to save dataframe: {e}") from e
+59 +         raise OSError(f"Failed to save dataframe: {e}") from e
+60 |
+   |
+
+UP007 [*] Use `X | Y` for type annotations
+  --> src/utils/file_utils.py:62:15
+   |
+61 | def load_dataframe(
+62 |     filepath: Union[str, Path],
+   |               ^^^^^^^^^^^^^^^^
+63 |     required: bool = True,
+64 |     **kwargs
+   |
+help: Convert to `X | Y`
+   |
+61 | def load_dataframe(
+   -     filepath: Union[str, Path],
+62 +     filepath: str | Path,
+63 |     required: bool = True,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> src/utils/file_utils.py:65:6
+   |
+63 |     required: bool = True,
+64 |     **kwargs
+65 | ) -> Optional[pd.DataFrame]:
+   |      ^^^^^^^^^^^^^^^^^^^^^^
+66 |     """
+67 |     Load a dataframe from CSV with error handling.
+   |
+help: Convert to `X | None`
+   |
+64 |     **kwargs
+   - ) -> Optional[pd.DataFrame]:
+65 + ) -> pd.DataFrame | None:
+66 |     """
+   |
+
+UP024 [*] Replace aliased errors with `OSError`
+  --> src/utils/file_utils.py:95:15
+   |
+93 |     except Exception as e:
+94 |         logger.error(f"Failed to load dataframe from {filepath}: {e}")
+95 |         raise IOError(f"Failed to load dataframe: {e}") from e
+   |               ^^^^^^^
+help: Replace `IOError` with builtin `OSError`
+   |
+94 |         logger.error(f"Failed to load dataframe from {filepath}: {e}")
+   -         raise IOError(f"Failed to load dataframe: {e}") from e
+95 +         raise OSError(f"Failed to load dataframe: {e}") from e
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/utils/logging_config.py:2:1
+  |
+1 |   """Logging configuration for the project."""
+2 | / import logging
+3 | | import sys
+4 | | from pathlib import Path
+5 | | from typing import Optional
+  | |___________________________^
+6 |
+7 |   def setup_logging(
+  |
+help: Organize imports
+  |
+6 |
+7 +
+8 | def setup_logging(
+  |
+
+UP045 [*] Use `X | None` for type annotations
+  --> src/utils/logging_config.py:9:15
+   |
+ 7 | def setup_logging(
+ 8 |     level: int = logging.INFO,
+ 9 |     log_file: Optional[Path] = None,
+   |               ^^^^^^^^^^^^^^
+10 |     format_string: Optional[str] = None
+11 | ) -> logging.Logger:
+   |
+help: Convert to `X | None`
+   |
+8  |     level: int = logging.INFO,
+   -     log_file: Optional[Path] = None,
+9  +     log_file: Path | None = None,
+10 |     format_string: Optional[str] = None
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> src/utils/logging_config.py:10:20
+   |
+ 8 |     level: int = logging.INFO,
+ 9 |     log_file: Optional[Path] = None,
+10 |     format_string: Optional[str] = None
+   |                    ^^^^^^^^^^^^^
+11 | ) -> logging.Logger:
+12 |     """
+   |
+help: Convert to `X | None`
+   |
+9  |     log_file: Optional[Path] = None,
+   -     format_string: Optional[str] = None
+10 +     format_string: str | None = None
+11 | ) -> logging.Logger:
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/utils/model_utils.py:2:1
+  |
+1 |   """Model utility functions."""
+2 | / import pickle
+3 | | from pathlib import Path
+4 | | from typing import Dict, Any, Optional, Union
+5 | | from datetime import datetime
+6 | | import logging
+  | |______________^
+7 |
+8 |   logger = logging.getLogger(__name__)
+  |
+help: Organize imports
+  |
+1 | """Model utility functions."""
+2 + import logging
+3 | import pickle
+4 + from datetime import datetime
+5 | from pathlib import Path
+  - from typing import Dict, Any, Optional, Union
+  - from datetime import datetime
+  - import logging
+6 + from typing import Any, Dict, Optional, Union
+7 |
+  |
+
+UP035 `typing.Dict` is deprecated, use `dict` instead
+ --> src/utils/model_utils.py:4:1
+  |
+2 | import pickle
+3 | from pathlib import Path
+4 | from typing import Dict, Any, Optional, Union
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+5 | from datetime import datetime
+6 | import logging
+  |
+
+UP007 [*] Use `X | Y` for type annotations
+  --> src/utils/model_utils.py:12:15
+   |
+10 | def save_model(
+11 |     model: Any,
+12 |     filepath: Union[str, Path],
+   |               ^^^^^^^^^^^^^^^^
+13 |     metadata: Optional[Dict[str, Any]] = None,
+14 |     versioned: bool = True
+   |
+help: Convert to `X | Y`
+   |
+11 |     model: Any,
+   -     filepath: Union[str, Path],
+12 +     filepath: str | Path,
+13 |     metadata: Optional[Dict[str, Any]] = None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> src/utils/model_utils.py:13:15
+   |
+11 |     model: Any,
+12 |     filepath: Union[str, Path],
+13 |     metadata: Optional[Dict[str, Any]] = None,
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^
+14 |     versioned: bool = True
+15 | ) -> Path:
+   |
+help: Convert to `X | None`
+   |
+12 |     filepath: Union[str, Path],
+   -     metadata: Optional[Dict[str, Any]] = None,
+13 +     metadata: Dict[str, Any] | None = None,
+14 |     versioned: bool = True
+   |
+
+UP006 [*] Use `dict` instead of `Dict` for type annotation
+  --> src/utils/model_utils.py:13:24
+   |
+11 |     model: Any,
+12 |     filepath: Union[str, Path],
+13 |     metadata: Optional[Dict[str, Any]] = None,
+   |                        ^^^^
+14 |     versioned: bool = True
+15 | ) -> Path:
+   |
+help: Replace with `dict`
+   |
+12 |     filepath: Union[str, Path],
+   -     metadata: Optional[Dict[str, Any]] = None,
+13 +     metadata: Optional[dict[str, Any]] = None,
+14 |     versioned: bool = True
+   |
+
+UP024 [*] Replace aliased errors with `OSError`
+  --> src/utils/model_utils.py:55:15
+   |
+53 |     except Exception as e:
+54 |         logger.error(f"Failed to save model to {filepath}: {e}")
+55 |         raise IOError(f"Failed to save model: {e}") from e
+   |               ^^^^^^^
+56 |
+57 | def load_model(
+   |
+help: Replace `IOError` with builtin `OSError`
+   |
+54 |         logger.error(f"Failed to save model to {filepath}: {e}")
+   -         raise IOError(f"Failed to save model: {e}") from e
+55 +         raise OSError(f"Failed to save model: {e}") from e
+56 |
+   |
+
+UP007 [*] Use `X | Y` for type annotations
+  --> src/utils/model_utils.py:58:15
+   |
+57 | def load_model(
+58 |     filepath: Union[str, Path],
+   |               ^^^^^^^^^^^^^^^^
+59 |     required: bool = True
+60 | ) -> Optional[Dict[str, Any]]:
+   |
+help: Convert to `X | Y`
+   |
+57 | def load_model(
+   -     filepath: Union[str, Path],
+58 +     filepath: str | Path,
+59 |     required: bool = True
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> src/utils/model_utils.py:60:6
+   |
+58 |     filepath: Union[str, Path],
+59 |     required: bool = True
+60 | ) -> Optional[Dict[str, Any]]:
+   |      ^^^^^^^^^^^^^^^^^^^^^^^^
+61 |     """
+62 |     Load a trained model with metadata.
+   |
+help: Convert to `X | None`
+   |
+59 |     required: bool = True
+   - ) -> Optional[Dict[str, Any]]:
+60 + ) -> Dict[str, Any] | None:
+61 |     """
+   |
+
+UP006 [*] Use `dict` instead of `Dict` for type annotation
+  --> src/utils/model_utils.py:60:15
+   |
+58 |     filepath: Union[str, Path],
+59 |     required: bool = True
+60 | ) -> Optional[Dict[str, Any]]:
+   |               ^^^^
+61 |     """
+62 |     Load a trained model with metadata.
+   |
+help: Replace with `dict`
+   |
+59 |     required: bool = True
+   - ) -> Optional[Dict[str, Any]]:
+60 + ) -> Optional[dict[str, Any]]:
+61 |     """
+   |
+
+UP024 [*] Replace aliased errors with `OSError`
+  --> src/utils/model_utils.py:90:15
+   |
+88 |     except Exception as e:
+89 |         logger.error(f"Failed to load model from {filepath}: {e}")
+90 |         raise IOError(f"Failed to load model: {e}") from e
+   |               ^^^^^^^
+help: Replace `IOError` with builtin `OSError`
+   |
+89 |         logger.error(f"Failed to load model from {filepath}: {e}")
+   -         raise IOError(f"Failed to load model: {e}") from e
+90 +         raise OSError(f"Failed to load model: {e}") from e
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> src/validation/validate_data.py:2:1
+  |
+1 |   """Data validation module for KAM Forecast project."""
+2 | / import pandas as pd
+3 | | import numpy as np
+4 | | from pathlib import Path
+5 | | from datetime import datetime
+6 | | from typing import Dict, List, Optional
+7 | | import sys
+  | |__________^
+8 |
+9 |   # Add project root to path for imports
+  |
+help: Organize imports
+   |
+1  | """Data validation module for KAM Forecast project."""
+   - import pandas as pd
+   - import numpy as np
+   - from pathlib import Path
+2  + import sys
+3  | from datetime import datetime
+4  + from pathlib import Path
+5  | from typing import Dict, List, Optional
+   - import sys
+6  |
+7  + import numpy as np
+8  + import pandas as pd
+9  +
+10 | # Add project root to path for imports
+   |
+
+F401 [*] `numpy` imported but unused
+ --> src/validation/validate_data.py:3:17
+  |
+1 | """Data validation module for KAM Forecast project."""
+2 | import pandas as pd
+3 | import numpy as np
+  |                 ^^
+4 | from pathlib import Path
+5 | from datetime import datetime
+  |
+help: Remove unused import: `numpy`
+  |
+2 | import pandas as pd
+  - import numpy as np
+3 | from pathlib import Path
+  |
+
+UP035 `typing.Dict` is deprecated, use `dict` instead
+ --> src/validation/validate_data.py:6:1
+  |
+4 | from pathlib import Path
+5 | from datetime import datetime
+6 | from typing import Dict, List, Optional
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+7 | import sys
+  |
+
+UP035 `typing.List` is deprecated, use `list` instead
+ --> src/validation/validate_data.py:6:1
+  |
+4 | from pathlib import Path
+5 | from datetime import datetime
+6 | from typing import Dict, List, Optional
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+7 | import sys
+  |
+
+F401 [*] `typing.List` imported but unused
+ --> src/validation/validate_data.py:6:26
+  |
+4 | from pathlib import Path
+5 | from datetime import datetime
+6 | from typing import Dict, List, Optional
+  |                          ^^^^
+7 | import sys
+  |
+help: Remove unused import
+  |
+5 | from datetime import datetime
+  - from typing import Dict, List, Optional
+6 + from typing import Dict
+7 | import sys
+  |
+
+F401 [*] `typing.Optional` imported but unused
+ --> src/validation/validate_data.py:6:32
+  |
+4 | from pathlib import Path
+5 | from datetime import datetime
+6 | from typing import Dict, List, Optional
+  |                                ^^^^^^^^
+7 | import sys
+  |
+help: Remove unused import
+  |
+5 | from datetime import datetime
+  - from typing import Dict, List, Optional
+6 + from typing import Dict
+7 | import sys
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src/validation/validate_data.py:12:1
+   |
+10 |   sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+11 |
+12 | / from config.config import config
+13 | | from src.utils.logging_config import get_logger
+14 | | from src.utils.file_utils import save_dataframe
+   | |_______________________________________________^
+15 |
+16 |   logger = get_logger(__name__)
+   |
+help: Organize imports
+   |
+12 | from config.config import config
+13 + from src.utils.file_utils import save_dataframe
+14 | from src.utils.logging_config import get_logger
+   - from src.utils.file_utils import save_dataframe
+15 |
+   |
+
+UP006 [*] Use `dict` instead of `Dict` for type annotation
+  --> src/validation/validate_data.py:18:42
+   |
+16 | logger = get_logger(__name__)
+17 |
+18 | def validate_schema(df: pd.DataFrame) -> Dict:
+   |                                          ^^^^
+19 |     """
+20 |     Check if required columns exist and have correct data types.
+   |
+help: Replace with `dict`
+   |
+17 |
+   - def validate_schema(df: pd.DataFrame) -> Dict:
+18 + def validate_schema(df: pd.DataFrame) -> dict:
+19 |     """
+   |
+
+UP006 [*] Use `dict` instead of `Dict` for type annotation
+  --> src/validation/validate_data.py:50:41
+   |
+48 |     return {'passed': len(issues) == 0, 'issues': issues}
+49 |
+50 | def validate_dates(df: pd.DataFrame) -> Dict:
+   |                                         ^^^^
+51 |     """
+52 |     Validate date-related constraints for monthly health data.
+   |
+help: Replace with `dict`
+   |
+49 |
+   - def validate_dates(df: pd.DataFrame) -> Dict:
+50 + def validate_dates(df: pd.DataFrame) -> dict:
+51 |     """
+   |
+
+UP006 [*] Use `dict` instead of `Dict` for type annotation
+   --> src/validation/validate_data.py:228:41
+    |
+226 |     return {'passed': len(issues) == 0, 'issues': issues}
+227 |
+228 | def run_validation(df: pd.DataFrame) -> Dict:
+    |                                         ^^^^
+229 |     """
+230 |     Run all validation checks and generate comprehensive report.
+    |
+help: Replace with `dict`
+    |
+227 |
+    - def run_validation(df: pd.DataFrame) -> Dict:
+228 + def run_validation(df: pd.DataFrame) -> dict:
+229 |     """
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+   --> src/validation/validate_data.py:283:5
+    |
+282 |   if __name__ == "__main__":
+283 | /     from src.utils.logging_config import setup_logging
+284 | |     from src.data.load_data import load_and_merge_data
+    | |______________________________________________________^
+285 |       
+286 |       setup_logging()
+    |
+help: Organize imports
+    |
+282 | if __name__ == "__main__":
+283 +     from src.data.load_data import load_and_merge_data
+284 |     from src.utils.logging_config import setup_logging
+    -     from src.data.load_data import load_and_merge_data
+285 |     
+    |
+
+BLE001 Do not catch blind exception: `Exception`
+   --> src/validation/validate_data.py:293:12
+    |
+291 |         results = run_validation(df)
+292 |         logger.info("Validation completed successfully")
+293 |     except Exception as e:
+    |            ^^^^^^^^^
+294 |         logger.error(f"Validation failed: {e}")
+295 |         print(f"Error: {e}")
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> system_launcher.py:6:1
+   |
+ 4 |   This script launches the complete system pipeline from data loading to prediction generation.
+ 5 |   """
+ 6 | / import sys
+ 7 | | import os
+ 8 | | from pathlib import Path
+ 9 | | import subprocess
+10 | | import argparse
+   | |_______________^
+11 |
+12 |   def launch_system_pipeline():
+   |
+help: Organize imports
+   |
+5  | """
+   - import sys
+6  + import argparse
+7  | import os
+   - from pathlib import Path
+8  | import subprocess
+   - import argparse
+9  + import sys
+10 + from pathlib import Path
+11 +
+12 |
+   |
+
+F401 [*] `os` imported but unused
+ --> system_launcher.py:7:8
+  |
+5 | """
+6 | import sys
+7 | import os
+  |        ^^
+8 | from pathlib import Path
+9 | import subprocess
+  |
+help: Remove unused import: `os`
+  |
+6 | import sys
+  - import os
+7 | from pathlib import Path
+  |
+
+RUF059 Unpacked variable `model` is never used
+  --> system_launcher.py:70:5
+   |
+68 |     print("\nStep 5: Training model...")
+69 |     from src.models.train_model import train_model
+70 |     model, metrics = train_model(features_df)
+   |     ^^^^^
+71 |     print(f"Model trained. Metrics: MAE={metrics['mae']:.2f}, R²={metrics['r2']:.3f}")
+   |
+help: Prefix it with an underscore or any other dummy variable pattern
+   |
+69 |     from src.models.train_model import train_model
+   -     model, metrics = train_model(features_df)
+70 +     _model, metrics = train_model(features_df)
+71 |     print(f"Model trained. Metrics: MAE={metrics['mae']:.2f}, R²={metrics['r2']:.3f}")
+   |
+note: This is an unsafe fix and may change runtime behavior
+
+F841 Local variable `validation_results` is assigned to but never used
+  --> system_launcher.py:80:5
+   |
+78 |     print("\nStep 7: Running validation...")
+79 |     from src.validation.validate_data import run_validation
+80 |     validation_results = run_validation(predictions_df)
+   |     ^^^^^^^^^^^^^^^^^^
+81 |     print("Validation completed.")
+82 |     # Note: run_validation automatically saves the validation report to the expected location
+   |
+help: Remove assignment to unused variable `validation_results`
+   |
+79 |     from src.validation.validate_data import run_validation
+   -     validation_results = run_validation(predictions_df)
+80 +     run_validation(predictions_df)
+81 |     print("Validation completed.")
+   |
+note: This is an unsafe fix and may change runtime behavior
+
+BLE001 Do not catch blind exception: `Exception`
+  --> system_launcher.py:89:12
+   |
+87 |         scores_df = compute_data_quality_scores()  # No parameters needed, loads from file
+88 |         print("Quality scores computed.")
+89 |     except Exception as e:
+   |            ^^^^^^^^^
+90 |         print(f"Quality scoring failed: {e}")
+91 |         print("Creating dummy scores for report generation...")
+   |
+
+F401 [*] `webbrowser` imported but unused
+   --> system_launcher.py:120:12
+    |
+118 |     import threading
+119 |     import time
+120 |     import webbrowser
+    |            ^^^^^^^^^^
+121 |     
+122 |     def run_dashboard(dashboard_path, url):
+    |
+help: Remove unused import: `webbrowser`
+    |
+119 |     import time
+    -     import webbrowser
+120 |     
+    |
+
+PLW1510 `subprocess.run` without explicit `check` argument
+   --> system_launcher.py:123:9
+    |
+122 |     def run_dashboard(dashboard_path, url):
+123 |         subprocess.run(["streamlit", "run", dashboard_path])
+    |         ^^^^^^^^^^^^^^
+124 |     
+125 |     # Define dashboards
+    |
+help: Add explicit `check=False`
+    |
+122 |     def run_dashboard(dashboard_path, url):
+    -         subprocess.run(["streamlit", "run", dashboard_path])
+123 +         subprocess.run(["streamlit", "run", dashboard_path], check=False)
+124 |     
+    |
+note: This suggestion may be incorrect or produce invalid syntax. It requires manual review and cannot be applied automatically
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/test_basic.py:4:1
+  |
+2 |   Basic tests for the Kenya Childhood Malnutrition Risk Prediction System.
+3 |   """
+4 | / import pytest
+5 | | import sys
+6 | | from pathlib import Path
+  | |________________________^
+7 |
+8 |   # Add project root to path for imports
+  |
+help: Organize imports
+  |
+3 | """
+  - import pytest
+4 | import sys
+5 | from pathlib import Path
+6 |
+7 + import pytest
+8 +
+9 | # Add project root to path for imports
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/test_basic.py:15:9
+   |
+13 |       """Test that core modules can be imported."""
+14 |       try:
+15 | /         from src.data.load_data import load_and_merge_data
+16 | |         from src.data.clean_data import clean_data
+17 | |         from src.features.build_features import build_features
+18 | |         from src.models.train_model import train_model
+19 | |         from src.models.predict import make_predictions
+20 | |         from src.validation.validate_data import run_validation
+21 | |         from src.scoring.compute_scores import compute_data_quality_scores
+22 | |         from config.config import config
+   | |________________________________________^
+23 |           
+24 |           assert callable(load_and_merge_data)
+   |
+help: Organize imports
+   |
+14 |     try:
+15 +         from config.config import config
+16 +         from src.data.clean_data import clean_data
+17 |         from src.data.load_data import load_and_merge_data
+   -         from src.data.clean_data import clean_data
+18 |         from src.features.build_features import build_features
+19 +         from src.models.predict import make_predictions
+20 |         from src.models.train_model import train_model
+   -         from src.models.predict import make_predictions
+21 +         from src.scoring.compute_scores import compute_data_quality_scores
+22 |         from src.validation.validate_data import run_validation
+   -         from src.scoring.compute_scores import compute_data_quality_scores
+   -         from config.config import config
+23 |         
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/test_configuration.py:4:1
+  |
+2 |   Unit tests for the configuration module.
+3 |   """
+4 | / import unittest
+5 | | from pathlib import Path
+6 | | from config.config import Config, config
+  | |________________________________________^
+help: Organize imports
+  |
+5 | from pathlib import Path
+6 +
+7 | from config.config import Config, config
+  |
+
+BLE001 Do not catch blind exception: `Exception`
+  --> tests/test_configuration.py:48:16
+   |
+46 |         try:
+47 |             cfg.ensure_directories()
+48 |         except Exception as e:
+   |                ^^^^^^^^^
+49 |             self.fail(f"ensure_directories raised an exception: {e}")
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/test_data_cleaning.py:4:1
+  |
+2 |   Unit tests for the data cleaning module.
+3 |   """
+4 | / import unittest
+5 | | import pandas as pd
+6 | | import numpy as np
+7 | | from src.data.clean_data import clean_data
+  | |__________________________________________^
+help: Organize imports
+  |
+4 | import unittest
+5 +
+6 + import numpy as np
+7 | import pandas as pd
+  - import numpy as np
+8 +
+9 | from src.data.clean_data import clean_data
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/test_data_loading.py:4:1
+   |
+ 2 |   Unit tests for the data loading module.
+ 3 |   """
+ 4 | / import unittest
+ 5 | | import pandas as pd
+ 6 | | import numpy as np
+ 7 | | import tempfile
+ 8 | | import os
+ 9 | | from pathlib import Path
+10 | |
+11 | | # Add project root to path
+12 | | import sys
+   | |__________^
+13 |   sys.path.insert(0, str(Path(__file__).parent.parent))
+   |
+help: Organize imports
+   |
+3  | """
+   - import unittest
+   - import pandas as pd
+   - import numpy as np
+   - import tempfile
+4  | import os
+   - from pathlib import Path
+5  |
+6  | # Add project root to path
+7  | import sys
+8  + import tempfile
+9  + import unittest
+10 + from pathlib import Path
+11 +
+12 + import numpy as np
+13 + import pandas as pd
+14 +
+15 | sys.path.insert(0, str(Path(__file__).parent.parent))
+   |
+
+F401 [*] `os` imported but unused
+ --> tests/test_data_loading.py:8:8
+  |
+6 | import numpy as np
+7 | import tempfile
+8 | import os
+  |        ^^
+9 | from pathlib import Path
+  |
+help: Remove unused import: `os`
+  |
+7 | import tempfile
+  - import os
+8 | from pathlib import Path
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/test_data_loading.py:15:1
+   |
+13 |   sys.path.insert(0, str(Path(__file__).parent.parent))
+14 |
+15 | / from src.data.load_data import load_and_merge_data, load_data_file
+16 | | from config.config import config
+   | |________________________________^
+help: Organize imports
+   |
+14 |
+15 + from config.config import config
+16 | from src.data.load_data import load_and_merge_data, load_data_file
+   - from config.config import config
+17 |
+   |
+
+F401 [*] `config.config.config` imported but unused
+  --> tests/test_data_loading.py:16:27
+   |
+15 | from src.data.load_data import load_and_merge_data, load_data_file
+16 | from config.config import config
+   |                           ^^^^^^
+help: Remove unused import: `config.config.config`
+   |
+15 | from src.data.load_data import load_and_merge_data, load_data_file
+   - from config.config import config
+16 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/test_feature_engineering.py:4:1
+  |
+2 |   Unit tests for the feature engineering module.
+3 |   """
+4 | / import unittest
+5 | | import pandas as pd
+6 | | import numpy as np
+7 | | from src.features.build_features import build_features
+  | |______________________________________________________^
+help: Organize imports
+  |
+4 | import unittest
+5 +
+6 + import numpy as np
+7 | import pandas as pd
+  - import numpy as np
+8 +
+9 | from src.features.build_features import build_features
+  |
+
+F401 [*] `numpy` imported but unused
+ --> tests/test_feature_engineering.py:6:17
+  |
+4 | import unittest
+5 | import pandas as pd
+6 | import numpy as np
+  |                 ^^
+7 | from src.features.build_features import build_features
+  |
+help: Remove unused import: `numpy`
+  |
+5 | import pandas as pd
+  - import numpy as np
+6 | from src.features.build_features import build_features
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/test_model_training.py:4:1
+  |
+2 |   Unit tests for the model training module.
+3 |   """
+4 | / import unittest
+5 | | import pandas as pd
+6 | | import numpy as np
+7 | | from src.models.train_model import train_model
+  | |______________________________________________^
+help: Organize imports
+  |
+4 | import unittest
+5 +
+6 + import numpy as np
+7 | import pandas as pd
+  - import numpy as np
+8 +
+9 | from src.models.train_model import train_model
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/test_runner.py:6:1
+   |
+ 4 |   This script discovers and runs all tests in the tests directory.
+ 5 |   """
+ 6 | / import unittest
+ 7 | | import sys
+ 8 | | import os
+ 9 | | from pathlib import Path
+   | |________________________^
+10 |
+11 |   # Add project root to path
+   |
+help: Organize imports
+  |
+5 | """
+6 + import os
+7 + import sys
+8 | import unittest
+  - import sys
+  - import os
+9 | from pathlib import Path
+  |
+
+F401 [*] `os` imported but unused
+ --> tests/test_runner.py:8:8
+  |
+6 | import unittest
+7 | import sys
+8 | import os
+  |        ^^
+9 | from pathlib import Path
+  |
+help: Remove unused import: `os`
+  |
+7 | import sys
+  - import os
+8 | from pathlib import Path
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/test_utils.py:4:1
+   |
+ 2 |   Unit tests for the utility functions.
+ 3 |   """
+ 4 | / import unittest
+ 5 | | import pandas as pd
+ 6 | | import numpy as np
+ 7 | | import tempfile
+ 8 | | import os
+ 9 | | from pathlib import Path
+10 | | from src.utils.file_utils import ensure_directory, save_dataframe, load_dataframe
+11 | | from src.utils.model_utils import save_model, load_model
+12 | | from sklearn.ensemble import RandomForestRegressor
+   | |__________________________________________________^
+help: Organize imports
+   |
+3  | """
+4  + import os
+5  + import tempfile
+6  | import unittest
+   - import pandas as pd
+7  + from pathlib import Path
+8  +
+9  | import numpy as np
+   - import tempfile
+   - import os
+   - from pathlib import Path
+   - from src.utils.file_utils import ensure_directory, save_dataframe, load_dataframe
+   - from src.utils.model_utils import save_model, load_model
+10 + import pandas as pd
+11 | from sklearn.ensemble import RandomForestRegressor
+12 |
+13 + from src.utils.file_utils import ensure_directory, load_dataframe, save_dataframe
+14 + from src.utils.model_utils import load_model, save_model
+15 +
+16 |
+   |
+
+F401 [*] `os` imported but unused
+  --> tests/test_utils.py:8:8
+   |
+ 6 | import numpy as np
+ 7 | import tempfile
+ 8 | import os
+   |        ^^
+ 9 | from pathlib import Path
+10 | from src.utils.file_utils import ensure_directory, save_dataframe, load_dataframe
+   |
+help: Remove unused import: `os`
+  |
+7 | import tempfile
+  - import os
+8 | from pathlib import Path
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/test_validation.py:4:1
+  |
+2 |   Unit tests for the validation module.
+3 |   """
+4 | / import unittest
+5 | | import pandas as pd
+6 | | import numpy as np
+7 | | from src.validation.validate_data import run_validation
+  | |_______________________________________________________^
+help: Organize imports
+  |
+4 | import unittest
+5 +
+6 + import numpy as np
+7 | import pandas as pd
+  - import numpy as np
+8 +
+9 | from src.validation.validate_data import run_validation
+  |
+
+F401 [*] `numpy` imported but unused
+ --> tests/test_validation.py:6:17
+  |
+4 | import unittest
+5 | import pandas as pd
+6 | import numpy as np
+  |                 ^^
+7 | from src.validation.validate_data import run_validation
+  |
+help: Remove unused import: `numpy`
+  |
+5 | import pandas as pd
+  - import numpy as np
+6 | from src.validation.validate_data import run_validation
+  |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> train_model.py:8:1
+   |
+ 6 |   reproduction path is this script, not a binary.
+ 7 |   """
+ 8 | / import argparse, hashlib, json, subprocess, sys
+ 9 | | from pathlib import Path
+10 | |
+11 | | import joblib
+12 | | import numpy as np
+13 | | import pandas as pd
+14 | | from sklearn.ensemble import HistGradientBoostingClassifier
+15 | | from sklearn.metrics import roc_auc_score
+16 | | from sklearn.model_selection import train_test_split
+   | |____________________________________________________^
+17 |
+18 |   REPO = Path(__file__).resolve().parent
+   |
+help: Organize imports
+   |
+7  | """
+   - import argparse, hashlib, json, subprocess, sys
+8  + import argparse
+9  + import hashlib
+10 + import json
+11 + import subprocess
+12 + import sys
+13 | from pathlib import Path
+   |
+
+BLE001 Do not catch blind exception: `Exception`
+  --> train_model.py:61:12
+   |
+59 |         return subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO, capture_output=True,
+60 |                               text=True, check=True).stdout.strip()
+61 |     except Exception:
+   |            ^^^^^^^^^
+62 |         return "unknown"
+   |
+
+RUF046 [*] Value being cast to `int` is already an integer
+  --> train_model.py:93:55
+   |
+91 |     joblib.dump(model, MODELS / "model.joblib")
+92 |     metrics = {
+93 |         "target": a.target, "seed": a.seed, "n_rows": int(len(df)),
+   |                                                       ^^^^^^^^^^^^
+94 |         "n_train": int(len(y_tr)), "n_test": int(len(y_te)),
+95 |         "roc_auc": float(auc), "roc_auc_ci95": [lo, hi],
+   |
+help: Remove unnecessary `int` call
+   |
+92 |     metrics = {
+   -         "target": a.target, "seed": a.seed, "n_rows": int(len(df)),
+93 +         "target": a.target, "seed": a.seed, "n_rows": len(df),
+94 |         "n_train": int(len(y_tr)), "n_test": int(len(y_te)),
+   |
+
+RUF046 [*] Value being cast to `int` is already an integer
+  --> train_model.py:94:20
+   |
+92 |     metrics = {
+93 |         "target": a.target, "seed": a.seed, "n_rows": int(len(df)),
+94 |         "n_train": int(len(y_tr)), "n_test": int(len(y_te)),
+   |                    ^^^^^^^^^^^^^^
+95 |         "roc_auc": float(auc), "roc_auc_ci95": [lo, hi],
+96 |         "features": list(X.columns),
+   |
+help: Remove unnecessary `int` call
+   |
+93 |         "target": a.target, "seed": a.seed, "n_rows": int(len(df)),
+   -         "n_train": int(len(y_tr)), "n_test": int(len(y_te)),
+94 +         "n_train": len(y_tr), "n_test": int(len(y_te)),
+95 |         "roc_auc": float(auc), "roc_auc_ci95": [lo, hi],
+   |
+
+RUF046 [*] Value being cast to `int` is already an integer
+  --> train_model.py:94:46
+   |
+92 |     metrics = {
+93 |         "target": a.target, "seed": a.seed, "n_rows": int(len(df)),
+94 |         "n_train": int(len(y_tr)), "n_test": int(len(y_te)),
+   |                                              ^^^^^^^^^^^^^^
+95 |         "roc_auc": float(auc), "roc_auc_ci95": [lo, hi],
+96 |         "features": list(X.columns),
+   |
+help: Remove unnecessary `int` call
+   |
+93 |         "target": a.target, "seed": a.seed, "n_rows": int(len(df)),
+   -         "n_train": int(len(y_tr)), "n_test": int(len(y_te)),
+94 +         "n_train": int(len(y_tr)), "n_test": len(y_te),
+95 |         "roc_auc": float(auc), "roc_auc_ci95": [lo, hi],
+   |
+
+Found 182 errors.
+[*] 139 fixable with `--fix` (8 unsafe fixes available with `--fix --unsafe-fixes`).
