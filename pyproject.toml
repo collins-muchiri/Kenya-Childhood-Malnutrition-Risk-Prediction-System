@@ -47,6 +47,13 @@ dev = [
     "pip-audit>=2.7"
 ]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Deterministic import contract: repo-root packages (config, src, app) resolve
+# identically under bare `pytest` (CI) and `python -m pytest` (local). Without
+# this, `python -m` masks missing path config because CWD joins sys.path.
+pythonpath = ["."]
+
 [project.urls]
 Homepage = "https://github.com/bucky-ops/Kenya-Childhood-Malnutrition-Risk-Prediction-System"
 Repository = "https://github.com/bucky-ops/Kenya-Childhood-Malnutrition-Risk-Prediction-System"
