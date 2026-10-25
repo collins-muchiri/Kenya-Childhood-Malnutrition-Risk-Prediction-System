@@ -1,0 +1,18 @@
+# Hook revisions match the CI gate toolchain exactly (see .github/workflows/ci.yml).
+# History: this file was previously named 'pre-commit-config.yaml' (no leading dot),
+# so pre-commit never loaded it and none of these hooks ever ran (defect #4).
+# isort hook removed: ruff (I001) owns import sorting in CI; two sorters fight.
+# mypy hook deferred: typecheck gate not yet wired in CI (tracked in issue #4 comment);
+# adding it here before the codebase passes would block every commit without adding signal.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.2
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+
+  - repo: https://github.com/psf/black
+    rev: 26.10.1
+    hooks:
+      - id: black
+        language_version: python3
