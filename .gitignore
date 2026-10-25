@@ -191,3 +191,8 @@ web/out/
 .env*.local
 models/
 *.joblib
+
+# Evidence artefacts for the QA ledger are versioned on purpose (mission rule:
+# every claim carries a committed artefact path). Keep this AFTER any *.log rule.
+!docs/qa/artifacts/
+!docs/qa/artifacts/**

@@ -1,8 +1,10 @@
 """
 Unit tests for the configuration module.
 """
+
 import unittest
 from pathlib import Path
+
 from config.config import Config, config
 
 
@@ -10,7 +12,7 @@ class TestConfiguration(unittest.TestCase):
     def test_config_initialization(self):
         """Test that configuration initializes correctly."""
         cfg = Config()
-        
+
         # Check that paths are Path objects
         self.assertIsInstance(cfg.BASE_DIR, Path)
         self.assertIsInstance(cfg.DATA_DIR, Path)
@@ -18,7 +20,7 @@ class TestConfiguration(unittest.TestCase):
         self.assertIsInstance(cfg.PROCESSED_DATA_DIR, Path)
         self.assertIsInstance(cfg.MODELS_DIR, Path)
         self.assertIsInstance(cfg.REPORTS_DIR, Path)
-        
+
         # Check that parameter dictionaries exist
         self.assertIsInstance(cfg.MODEL_PARAMS, dict)
         self.assertIsInstance(cfg.QUALITY_THRESHOLDS, dict)
@@ -31,23 +33,24 @@ class TestConfiguration(unittest.TestCase):
     def test_config_singleton_instance(self):
         """Test that the global config instance exists."""
         self.assertIsInstance(config, Config)
-        
+
         # Check that it has the expected attributes
-        self.assertTrue(hasattr(config, 'MODEL_PARAMS'))
-        self.assertTrue(hasattr(config, 'QUALITY_THRESHOLDS'))
-        self.assertTrue(hasattr(config, 'DQR_WEIGHTS'))
+        self.assertTrue(hasattr(config, "MODEL_PARAMS"))
+        self.assertTrue(hasattr(config, "QUALITY_THRESHOLDS"))
+        self.assertTrue(hasattr(config, "DQR_WEIGHTS"))
 
     def test_config_directories_creation(self):
         """Test that ensure_directories method creates directories."""
         cfg = Config()
-        
-        # Just call the method to ensure it doesn't raise an exception
-        # The actual directory creation is tested in integration
-        try:
-            cfg.ensure_directories()
-        except Exception as e:
-            self.fail(f"ensure_directories raised an exception: {e}")
+
+        # Call directly: any exception fails the test naturally (no
+        # try/except-fail anti-pattern), then assert the real effect.
+        cfg.ensure_directories()
+        self.assertTrue(
+            cfg.PROCESSED_DATA_DIR.exists(),
+            "ensure_directories did not create PROCESSED_DATA_DIR",
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

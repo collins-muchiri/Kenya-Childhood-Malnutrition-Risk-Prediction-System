@@ -52,19 +52,60 @@ export interface AssessmentResult {
 // ─── WHO 2006 growth-standard reference tables (simplified) ────────────────
 // Median height-for-age (cm) by completed months.
 const HEIGHT_MEDIAN: Record<'male' | 'female', Array<[number, number]>> = {
-  male: [[0, 49.9], [6, 67.6], [12, 75.7], [18, 82.3], [24, 87.1], [36, 96.1], [48, 103.3], [60, 110.0]],
-  female: [[0, 49.1], [6, 65.7], [12, 74.0], [18, 80.7], [24, 85.7], [36, 95.1], [48, 102.7], [60, 109.4]],
+  male: [
+    [0, 49.9],
+    [6, 67.6],
+    [12, 75.7],
+    [18, 82.3],
+    [24, 87.1],
+    [36, 96.1],
+    [48, 103.3],
+    [60, 110.0],
+  ],
+  female: [
+    [0, 49.1],
+    [6, 65.7],
+    [12, 74.0],
+    [18, 80.7],
+    [24, 85.7],
+    [36, 95.1],
+    [48, 102.7],
+    [60, 109.4],
+  ],
 };
 // Median weight-for-age (kg) by completed months.
 const WEIGHT_MEDIAN: Record<'male' | 'female', Array<[number, number]>> = {
-  male: [[0, 3.3], [6, 7.9], [12, 9.6], [18, 11.2], [24, 12.2], [36, 14.3], [48, 16.3], [60, 18.3]],
-  female: [[0, 3.2], [6, 7.3], [12, 8.9], [18, 10.2], [24, 11.5], [36, 13.9], [48, 16.1], [60, 18.2]],
+  male: [
+    [0, 3.3],
+    [6, 7.9],
+    [12, 9.6],
+    [18, 11.2],
+    [24, 12.2],
+    [36, 14.3],
+    [48, 16.3],
+    [60, 18.3],
+  ],
+  female: [
+    [0, 3.2],
+    [6, 7.3],
+    [12, 8.9],
+    [18, 10.2],
+    [24, 11.5],
+    [36, 13.9],
+    [48, 16.1],
+    [60, 18.2],
+  ],
 };
 // Standard deviations (constant simplification of WHO's age-varying SDs).
 const HEIGHT_SD = 3.5;
 const WEIGHT_SD = 1.3;
 // Median BMI-for-age (kg/m²) and SD across 12–60 months (slight decline).
-const BMI_MEDIAN: Array<[number, number]> = [[12, 16.4], [24, 15.9], [36, 15.5], [60, 15.0]];
+const BMI_MEDIAN: Array<[number, number]> = [
+  [12, 16.4],
+  [24, 15.9],
+  [36, 15.5],
+  [60, 15.0],
+];
 const BMI_SD = 1.0;
 
 function interp(table: Array<[number, number]>, x: number): number {
@@ -74,7 +115,7 @@ function interp(table: Array<[number, number]>, x: number): number {
     const [x0, y0] = table[i - 1];
     if (x <= x1) return y0 + ((y1 - y0) * (x - x0)) / (x1 - x0);
   }
-  const [xLast, yLast] = table[table.length - 1];
+  const [, yLast] = table[table.length - 1];
   return yLast;
 }
 
@@ -157,7 +198,8 @@ export function assessRisk(input: AssessmentInput): AssessmentResult {
   }
   if (input.muac_mm !== undefined) {
     if (muacSevere) findings.push(`MUAC ${input.muac_mm} mm is below the 115 mm severe threshold.`);
-    else if (muacModerate) findings.push(`MUAC ${input.muac_mm} mm falls in the 115–125 mm moderate band.`);
+    else if (muacModerate)
+      findings.push(`MUAC ${input.muac_mm} mm falls in the 115–125 mm moderate band.`);
     else findings.push(`MUAC ${input.muac_mm} mm is acceptable (≥ 125 mm).`);
   }
   if (input.dietary_diversity !== undefined && input.dietary_diversity < 5) {
@@ -180,26 +222,38 @@ export function assessRisk(input: AssessmentInput): AssessmentResult {
 
   // Recommendations
   if (immediateAction) {
-    recommendations.push('Seek medical attention immediately — this meets severe acute malnutrition (SAM) criteria.');
-    recommendations.push('Request assessment for ready-to-use therapeutic food (RUTF) at the nearest health facility.');
+    recommendations.push(
+      'Seek medical attention immediately — this meets severe acute malnutrition (SAM) criteria.',
+    );
+    recommendations.push(
+      'Request assessment for ready-to-use therapeutic food (RUTF) at the nearest health facility.',
+    );
   } else if (risk === 'moderate') {
-    recommendations.push('Visit the nearest clinic for supplementary feeding programme (SFP) enrolment.');
+    recommendations.push(
+      'Visit the nearest clinic for supplementary feeding programme (SFP) enrolment.',
+    );
     recommendations.push('Return to the clinic every 2 weeks for growth monitoring.');
   } else if (risk === 'watch') {
-    recommendations.push('Increase meal frequency and dietary diversity (aim for 5 of 7 food groups daily).');
+    recommendations.push(
+      'Increase meal frequency and dietary diversity (aim for 5 of 7 food groups daily).',
+    );
     recommendations.push('Schedule a follow-up weigh-in within one month.');
   } else {
     recommendations.push('Continue current feeding practices — growth is on track.');
     recommendations.push('Keep routine growth-monitoring visits every 3 months.');
   }
   if (input.recent_illness) {
-    recommendations.push('During and after illness, offer one extra meal per day and oral rehydration as needed.');
+    recommendations.push(
+      'During and after illness, offer one extra meal per day and oral rehydration as needed.',
+    );
   }
   if (input.improved_water === false) {
     recommendations.push('Treat drinking water (boil, chlorinate, or filter) before use.');
   }
   if (input.breastfeeding === false && input.age_months < 24) {
-    recommendations.push('Discuss re-lactation / continued breastfeeding options with a community health worker.');
+    recommendations.push(
+      'Discuss re-lactation / continued breastfeeding options with a community health worker.',
+    );
   }
 
   const riskLabel: Record<NutritionalRisk, string> = {

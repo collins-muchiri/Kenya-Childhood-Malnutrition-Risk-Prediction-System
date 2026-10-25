@@ -4,7 +4,7 @@ This script generates realistic test data for the system to enable testing and d
 
 ## Overview
 
-The `generate_test_data_simple.py` script creates synthetic but realistic data for:
+The `scripts/generate_test_data_simple.py` script creates synthetic but realistic data for:
 - WHO nutrition indicators
 - UNICEF WASH indicators  
 - DHIS2 malnutrition case data
@@ -14,7 +14,7 @@ The `generate_test_data_simple.py` script creates synthetic but realistic data f
 
 ### Generate Test Data
 ```bash
-python generate_test_data_simple.py
+python scripts/generate_test_data_simple.py
 ```
 
 By default, this creates:

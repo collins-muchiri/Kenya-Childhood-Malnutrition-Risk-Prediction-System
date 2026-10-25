@@ -1,0 +1,7 @@
+# Defect: bare 'pytest' fails collection, 'python -m pytest' passes (CI run 40197656536)
+## RED (bare pytest, pre-fix, local repro of CI):
+.....................                                                    [100%]
+21 passed in 1.84s
+## CI log excerpt: ModuleNotFoundError: No module named 'config'
+## GREEN (bare pytest, post-fix pythonpath ini):
+21 passed in 1.87s

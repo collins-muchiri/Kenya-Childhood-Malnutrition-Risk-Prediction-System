@@ -5,7 +5,12 @@ is missing or marked TO VERIFY, trains a gradient-boosted classifier on a strati
 writes models/model.joblib plus models/metrics.json. The models directory must be gitignored; the
 reproduction path is this script, not a binary.
 """
-import argparse, hashlib, json, subprocess, sys
+
+import argparse
+import hashlib
+import json
+import subprocess
+import sys
 from pathlib import Path
 
 import joblib
@@ -36,7 +41,11 @@ def provenance_gaps():
 
 
 def load_frame(target):
-    frames = [pd.read_csv(c) for c in sorted(DATA.glob("*.csv")) if target in pd.read_csv(c, nrows=0).columns]
+    frames = [
+        pd.read_csv(c)
+        for c in sorted(DATA.glob("*.csv"))
+        if target in pd.read_csv(c, nrows=0).columns
+    ]
     if not frames:
         sys.exit(f"target column {target!r} not present in any data/*.csv")
     return pd.concat(frames, ignore_index=True)
@@ -56,9 +65,15 @@ def bootstrap_auc(y, p, n=400):
 
 def git_hash():
     try:
-        return subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO, capture_output=True,
-                              text=True, check=True).stdout.strip()
-    except Exception:
+        return subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        # Narrowed: git missing or command failure are the only expected modes.
         return "unknown"
 
 
@@ -72,14 +87,22 @@ def main():
     if gaps:
         print("refusing to train on unprovenanced data:")
         print("\n".join("  - " + g for g in gaps))
-        print("complete DATA_PROVENANCE.md sidecars first; an unprovenanced model is an unauditable model")
+        print(
+            "complete DATA_PROVENANCE.md sidecars first; an unprovenanced model is an unauditable model"
+        )
         return 1
 
     df = load_frame(a.target)
-    drop = [a.target] + [c for c in df.columns if c.lower() in ("id", "household_id", "case_id")]
-    X = df.select_dtypes(include=[np.number]).drop(columns=[c for c in drop if c in df.columns])
+    drop = [a.target] + [
+        c for c in df.columns if c.lower() in ("id", "household_id", "case_id")
+    ]
+    X = df.select_dtypes(include=[np.number]).drop(
+        columns=[c for c in drop if c in df.columns]
+    )
     y = df[a.target].astype(int)
-    X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.3, stratify=y, random_state=a.seed)
+    X_tr, X_te, y_tr, y_te = train_test_split(
+        X, y, test_size=0.3, stratify=y, random_state=a.seed
+    )
 
     model = HistGradientBoostingClassifier(random_state=a.seed, max_iter=300)
     model.fit(X_tr, y_tr)
@@ -90,16 +113,24 @@ def main():
     MODELS.mkdir(exist_ok=True)
     joblib.dump(model, MODELS / "model.joblib")
     metrics = {
-        "target": a.target, "seed": a.seed, "n_rows": int(len(df)),
-        "n_train": int(len(y_tr)), "n_test": int(len(y_te)),
-        "roc_auc": float(auc), "roc_auc_ci95": [lo, hi],
+        "target": a.target,
+        "seed": a.seed,
+        "n_rows": len(df),
+        "n_train": len(y_tr),
+        "n_test": len(y_te),
+        "roc_auc": float(auc),
+        "roc_auc_ci95": [lo, hi],
         "features": list(X.columns),
-        "data_sha256": hashlib.sha256(pd.util.hash_pandas_object(df, index=False).values.tobytes()).hexdigest()[:16],
+        "data_sha256": hashlib.sha256(
+            pd.util.hash_pandas_object(df, index=False).values.tobytes()
+        ).hexdigest()[:16],
         "git_commit": git_hash(),
         "note": "county-level planning support only; see MODEL_CARD.md for intended use and out-of-scope use",
     }
     (MODELS / "metrics.json").write_text(json.dumps(metrics, indent=2))
-    print(f"trained on {metrics['n_train']} rows, auc {auc:.3f} (95% CI {lo:.3f} to {hi:.3f})")
+    print(
+        f"trained on {metrics['n_train']} rows, auc {auc:.3f} (95% CI {lo:.3f} to {hi:.3f})"
+    )
     print("models/ must be gitignored; the reproduction path is this script")
     return 0
 

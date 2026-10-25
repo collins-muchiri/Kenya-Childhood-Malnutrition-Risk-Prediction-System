@@ -1,10 +1,16 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import type { Map as LeafletMap, GeoJSON as LeafletGeoJSON, LayerGroup } from 'leaflet';
 import {
-  Search, Info, RotateCcw, Download, ChevronDown, ChevronUp,
-  Accessibility, X,
+  Search,
+  Info,
+  RotateCcw,
+  Download,
+  ChevronDown,
+  ChevronUp,
+  Accessibility,
+  X,
 } from 'lucide-react';
 
 // ─── Data layer definitions ────────────────────────────────────────────────
@@ -166,8 +172,13 @@ interface KenyaGISMapProps {
 }
 
 export default function KenyaGISMap({
-  selectedCounty, onSelect, activeLayer, onLayerChange,
-  countyData, geojson, lastUpdated,
+  selectedCounty,
+  onSelect,
+  activeLayer,
+  onLayerChange,
+  countyData,
+  geojson,
+  lastUpdated,
 }: KenyaGISMapProps) {
   const [showLabels, setShowLabels] = useState(true);
   const [liveMode, setLiveMode] = useState(false);
@@ -177,30 +188,26 @@ export default function KenyaGISMap({
   const [legendOpen, setLegendOpen] = useState(true);
   const [showLiveInfo, setShowLiveInfo] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<string[]>([]);
+
   const [searchFocused, setSearchFocused] = useState(false);
   const mapRef = useRef<LeafletMap | null>(null);
   const geoJsonRef = useRef<LeafletGeoJSON | null>(null);
   const labelsRef = useRef<LayerGroup | null>(null);
 
   // ─── Search logic ──────────────────────────────────────────────────────
-  const allCounties = Object.keys(countyData).sort();
+  const allCounties = useMemo(() => Object.keys(countyData).sort(), [countyData]);
 
-  useEffect(() => {
-    if (!searchQuery.trim()) {
-      setSearchResults([]);
-      return;
-    }
+  // Derived state: computed during render instead of mirrored into state via
+  // an effect (react-hooks/set-state-in-effect; avoids cascading renders).
+  const searchResults = useMemo(() => {
+    if (!searchQuery.trim()) return [];
     const q = searchQuery.toLowerCase();
-    setSearchResults(
-      allCounties.filter((c) => c.toLowerCase().includes(q)).slice(0, 8),
-    );
+    return allCounties.filter((c) => c.toLowerCase().includes(q)).slice(0, 8);
   }, [searchQuery, allCounties]);
 
   const handleSearchSelect = (county: string) => {
     onSelect(county);
     setSearchQuery(county);
-    setSearchResults([]);
     setSearchFocused(false);
     // Fly to the selected county on the map
     const data = countyData[county];
@@ -233,9 +240,14 @@ export default function KenyaGISMap({
 
   useEffect(() => {
     if (!liveMode) return;
-    fetchLiveData();
+    // Deferred so the effect body performs no synchronous setState
+    // (react-hooks/set-state-in-effect); the macrotask starts the first poll.
+    const initial = setTimeout(fetchLiveData, 0);
     const interval = setInterval(fetchLiveData, 30_000);
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(initial);
+      clearInterval(interval);
+    };
   }, [liveMode]);
 
   // ─── Initialize Leaflet map ────────────────────────────────────────────
@@ -263,7 +275,8 @@ export default function KenyaGISMap({
       });
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 10,
       }).addTo(map);
 
@@ -289,8 +302,14 @@ export default function KenyaGISMap({
       const L = (await import('leaflet')).default;
       if (cancelled || !mapRef.current) return;
 
-      if (geoJsonRef.current) { geoJsonRef.current.remove(); geoJsonRef.current = null; }
-      if (labelsRef.current) { labelsRef.current.remove(); labelsRef.current = null; }
+      if (geoJsonRef.current) {
+        geoJsonRef.current.remove();
+        geoJsonRef.current = null;
+      }
+      if (labelsRef.current) {
+        labelsRef.current.remove();
+        labelsRef.current = null;
+      }
 
       const layerConfig = LAYERS.find((l) => l.key === activeLayer)!;
       const useCB = colorblindMode;
@@ -298,11 +317,43 @@ export default function KenyaGISMap({
       const cbColorFn = (v: number) => {
         // Colorblind-friendly: use a blue-to-orange diverging scale
         const ranges: Record<LayerKey, [number, string][]> = {
-          malnutrition: [[5000, '#08519c'], [2000, '#3182bd'], [1000, '#6baed6'], [500, '#c6dbef'], [100, '#fd8d3c'], [0, '#74c476']],
-          stunting: [[30, '#08519c'], [25, '#3182bd'], [20, '#6baed6'], [15, '#c6dbef'], [10, '#fd8d3c'], [0, '#74c476']],
-          wasting: [[7, '#08519c'], [5, '#3182bd'], [3, '#6baed6'], [2, '#c6dbef'], [0, '#74c476']],
-          wash: [[80, '#74c476'], [60, '#c6dbef'], [45, '#6baed6'], [30, '#3182bd'], [0, '#08519c']],
-          poverty: [[60, '#08519c'], [45, '#3182bd'], [35, '#6baed6'], [25, '#c6dbef'], [0, '#74c476']],
+          malnutrition: [
+            [5000, '#08519c'],
+            [2000, '#3182bd'],
+            [1000, '#6baed6'],
+            [500, '#c6dbef'],
+            [100, '#fd8d3c'],
+            [0, '#74c476'],
+          ],
+          stunting: [
+            [30, '#08519c'],
+            [25, '#3182bd'],
+            [20, '#6baed6'],
+            [15, '#c6dbef'],
+            [10, '#fd8d3c'],
+            [0, '#74c476'],
+          ],
+          wasting: [
+            [7, '#08519c'],
+            [5, '#3182bd'],
+            [3, '#6baed6'],
+            [2, '#c6dbef'],
+            [0, '#74c476'],
+          ],
+          wash: [
+            [80, '#74c476'],
+            [60, '#c6dbef'],
+            [45, '#6baed6'],
+            [30, '#3182bd'],
+            [0, '#08519c'],
+          ],
+          poverty: [
+            [60, '#08519c'],
+            [45, '#3182bd'],
+            [35, '#6baed6'],
+            [25, '#c6dbef'],
+            [0, '#74c476'],
+          ],
         };
         const stops = ranges[activeLayer];
         for (const [threshold, color] of stops) {
@@ -345,7 +396,9 @@ export default function KenyaGISMap({
         layer.on('click', () => onSelect(name));
       };
 
-      geoJsonRef.current = L.geoJSON(geojson, { style: styleFor, onEachFeature }).addTo(mapRef.current);
+      geoJsonRef.current = L.geoJSON(geojson, { style: styleFor, onEachFeature }).addTo(
+        mapRef.current,
+      );
 
       if (showLabels) {
         labelsRef.current = L.layerGroup().addTo(mapRef.current);
@@ -366,18 +419,46 @@ export default function KenyaGISMap({
       }
 
       if (geoJsonRef.current && (geoJsonRef.current as any).getBounds) {
-        try { mapRef.current.fitBounds((geoJsonRef.current as any).getBounds()); } catch { /* */ }
+        try {
+          mapRef.current.fitBounds((geoJsonRef.current as any).getBounds());
+        } catch {
+          /* */
+        }
       }
     })();
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [geojson, countyData, activeLayer, selectedCounty, showLabels, colorblindMode]);
 
   // ─── Export functions ──────────────────────────────────────────────────
   const exportCSV = () => {
-    const rows = [['County', 'Predicted_Cases', 'Stunting_%', 'Wasting_%', 'Underweight_%', 'Water_Access_%', 'Poverty_%', 'GAM_Risk', 'Under5_Population']];
+    const rows = [
+      [
+        'County',
+        'Predicted_Cases',
+        'Stunting_%',
+        'Wasting_%',
+        'Underweight_%',
+        'Water_Access_%',
+        'Poverty_%',
+        'GAM_Risk',
+        'Under5_Population',
+      ],
+    ];
     for (const [name, d] of Object.entries(countyData)) {
-      rows.push([name, String(d.predicted_cases), String(d.stunting), String(d.wasting), String(d.underweight), String(d.water_access), String(d.poverty), d.gam_risk, String(d.population_under_5)]);
+      rows.push([
+        name,
+        String(d.predicted_cases),
+        String(d.stunting),
+        String(d.wasting),
+        String(d.underweight),
+        String(d.water_access),
+        String(d.poverty),
+        d.gam_risk,
+        String(d.population_under_5),
+      ]);
     }
     const csv = rows.map((r) => r.join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
@@ -431,7 +512,10 @@ export default function KenyaGISMap({
         <div className="flex flex-wrap items-center gap-2 mb-3">
           {/* Search */}
           <div className="relative flex-1 min-w-[200px] max-w-sm">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" aria-hidden="true" />
+            <Search
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"
+              aria-hidden="true"
+            />
             <input
               type="text"
               value={searchQuery}
@@ -443,7 +527,13 @@ export default function KenyaGISMap({
               className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
             />
             {searchQuery && (
-              <button onClick={() => { setSearchQuery(''); setSearchResults([]); }} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600" aria-label="Clear search">
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                aria-label="Clear search"
+              >
                 <X className="w-4 h-4" />
               </button>
             )}
@@ -473,11 +563,16 @@ export default function KenyaGISMap({
               <button
                 onClick={() => setLiveMode(!liveMode)}
                 className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-l-lg text-xs font-medium transition-colors ${
-                  liveMode ? 'bg-emerald-100 text-emerald-700 border border-emerald-300' : 'bg-slate-100 text-slate-600 border border-slate-300 hover:bg-slate-200'
+                  liveMode
+                    ? 'bg-emerald-100 text-emerald-700 border border-emerald-300'
+                    : 'bg-slate-100 text-slate-600 border border-slate-300 hover:bg-slate-200'
                 }`}
                 aria-pressed={liveMode}
               >
-                <span className={`w-2 h-2 rounded-full ${liveMode ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} aria-hidden="true" />
+                <span
+                  className={`w-2 h-2 rounded-full ${liveMode ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`}
+                  aria-hidden="true"
+                />
                 {isLoadingLive ? 'Refreshing…' : liveMode ? 'Live' : 'Live mode'}
               </button>
               <button
@@ -490,15 +585,28 @@ export default function KenyaGISMap({
             </div>
             {showLiveInfo && (
               <div className="absolute top-full right-0 mt-1 w-64 bg-white border border-slate-200 rounded-lg shadow-xl p-3 text-xs text-slate-600 z-30">
-                <strong className="text-slate-900">Live Mode</strong> refreshes predicted-case data every 30 seconds by querying the ML inference API. In production, this pulls real-time DHIS2 / KHIS facility reports. The map colours update to reflect the latest available numbers.
-                <button onClick={() => setShowLiveInfo(false)} className="block mt-2 text-emerald-600 font-medium">Got it</button>
+                <strong className="text-slate-900">Live Mode</strong> refreshes predicted-case data
+                every 30 seconds by querying the ML inference API. In production, this pulls
+                real-time DHIS2 / KHIS facility reports. The map colours update to reflect the
+                latest available numbers.
+                <button
+                  onClick={() => setShowLiveInfo(false)}
+                  className="block mt-2 text-emerald-600 font-medium"
+                >
+                  Got it
+                </button>
               </div>
             )}
           </div>
 
           {/* Labels toggle */}
           <label className="inline-flex items-center gap-1.5 text-xs text-slate-600 cursor-pointer px-2 py-2">
-            <input type="checkbox" checked={showLabels} onChange={(e) => setShowLabels(e.target.checked)} className="w-3.5 h-3.5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500" />
+            <input
+              type="checkbox"
+              checked={showLabels}
+              onChange={(e) => setShowLabels(e.target.checked)}
+              className="w-3.5 h-3.5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+            />
             Labels
           </label>
 
@@ -525,11 +633,19 @@ export default function KenyaGISMap({
 
           {/* Export */}
           <div className="flex items-center gap-1">
-            <button onClick={exportCSV} className="inline-flex items-center gap-1 px-2.5 py-2 rounded-lg text-xs font-medium bg-slate-100 text-slate-600 border border-slate-300 hover:bg-slate-200 transition-colors" title="Download county data as CSV">
+            <button
+              onClick={exportCSV}
+              className="inline-flex items-center gap-1 px-2.5 py-2 rounded-lg text-xs font-medium bg-slate-100 text-slate-600 border border-slate-300 hover:bg-slate-200 transition-colors"
+              title="Download county data as CSV"
+            >
               <Download className="w-3.5 h-3.5" aria-hidden="true" />
               CSV
             </button>
-            <button onClick={exportGeoJSON} className="inline-flex items-center gap-1 px-2.5 py-2 rounded-lg text-xs font-medium bg-slate-100 text-slate-600 border border-slate-300 hover:bg-slate-200 transition-colors" title="Download enriched GeoJSON">
+            <button
+              onClick={exportGeoJSON}
+              className="inline-flex items-center gap-1 px-2.5 py-2 rounded-lg text-xs font-medium bg-slate-100 text-slate-600 border border-slate-300 hover:bg-slate-200 transition-colors"
+              title="Download enriched GeoJSON"
+            >
               <Download className="w-3.5 h-3.5" aria-hidden="true" />
               GeoJSON
             </button>
@@ -543,7 +659,9 @@ export default function KenyaGISMap({
               key={layer.key}
               onClick={() => onLayerChange(layer.key)}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                activeLayer === layer.key ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                activeLayer === layer.key
+                  ? 'bg-emerald-600 text-white shadow-sm'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
               title={layer.description}
             >
@@ -572,14 +690,24 @@ export default function KenyaGISMap({
             className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 rounded-t-xl"
             aria-expanded={legendOpen}
           >
-            <span>{activeLayerConfig.icon} {activeLayerConfig.label} Legend</span>
-            {legendOpen ? <ChevronDown className="w-3.5 h-3.5" aria-hidden="true" /> : <ChevronUp className="w-3.5 h-3.5" aria-hidden="true" />}
+            <span>
+              {activeLayerConfig.icon} {activeLayerConfig.label} Legend
+            </span>
+            {legendOpen ? (
+              <ChevronDown className="w-3.5 h-3.5" aria-hidden="true" />
+            ) : (
+              <ChevronUp className="w-3.5 h-3.5" aria-hidden="true" />
+            )}
           </button>
           {legendOpen && (
             <div className="px-3 pb-3 flex flex-col gap-1.5">
               {activeLayerConfig.legendStops.map((stop) => (
                 <div key={stop.label} className="flex items-center gap-2">
-                  <span className="w-4 h-4 rounded shrink-0" style={{ background: stop.color }} aria-hidden="true" />
+                  <span
+                    className="w-4 h-4 rounded shrink-0"
+                    style={{ background: stop.color }}
+                    aria-hidden="true"
+                  />
                   <span className="text-xs text-slate-600">{stop.label}</span>
                 </div>
               ))}

@@ -1,0 +1,31 @@
+
+> kenya-malnutrition-web@1.1.0 lint
+> eslint .
+
+
+/tmp/arena/tenants/0a21b35e-c99d-4ade-99ab-72c28be46154/sessions/5a1891ec-d5ec-4f2d-8bc3-7a104c67ce12/workspace/audit_ws/Kenya-Childhood-Malnutrition-Risk-Prediction-System/web/app/page.tsx
+   34:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  258:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/tmp/arena/tenants/0a21b35e-c99d-4ade-99ab-72c28be46154/sessions/5a1891ec-d5ec-4f2d-8bc3-7a104c67ce12/workspace/audit_ws/Kenya-Childhood-Malnutrition-Risk-Prediction-System/web/components/HomeMap.tsx
+  31:42  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/tmp/arena/tenants/0a21b35e-c99d-4ade-99ab-72c28be46154/sessions/5a1891ec-d5ec-4f2d-8bc3-7a104c67ce12/workspace/audit_ws/Kenya-Childhood-Malnutrition-Risk-Prediction-System/web/components/KenyaGISMap.tsx
+  164:12  warning  Unexpected any. Specify a different type                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+  317:34  warning  Unexpected any. Specify a different type                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+  320:39  warning  Unexpected any. Specify a different type                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+  332:39  warning  Unexpected any. Specify a different type                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+  335:39  warning  Unexpected any. Specify a different type                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+  357:34  warning  Unexpected any. Specify a different type                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+  369:56  warning  Unexpected any. Specify a different type                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+  370:63  warning  Unexpected any. Specify a different type                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+  375:6   warning  React Hook useEffect has a missing dependency: 'onSelect'. Either include it or remove the dependency array. If 'onSelect' changes too often, find the parent component that defines it and wrap that definition in useCallback  react-hooks/exhaustive-deps
+  397:42  warning  Unexpected any. Specify a different type                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+
+/tmp/arena/tenants/0a21b35e-c99d-4ade-99ab-72c28be46154/sessions/5a1891ec-d5ec-4f2d-8bc3-7a104c67ce12/workspace/audit_ws/Kenya-Childhood-Malnutrition-Risk-Prediction-System/web/components/MapClient.tsx
+   85:35  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   87:42  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  110:49  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 16 problems (0 errors, 16 warnings)
+
