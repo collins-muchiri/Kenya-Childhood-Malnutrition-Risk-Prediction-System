@@ -59,11 +59,39 @@ EXCLUDED_PATHS = (
 )
 
 
+SCAN_EXTENSIONS = {
+    ".py",
+    ".pyi",
+    ".js",
+    ".jsx",
+    ".ts",
+    ".tsx",
+    ".mjs",
+    ".cjs",
+    ".yml",
+    ".yaml",
+    ".toml",
+    ".cfg",
+    ".ini",
+    ".sh",
+    ".bash",
+}
+
+
 def tracked_files() -> list[str]:
+    """Tracked files whose types can carry an operative suppression.
+
+    Prose (.md) and evidence logs are excluded: they *describe* suppressions,
+    they cannot enact them.
+    """
     out = subprocess.run(
         ["git", "ls-files"], cwd=ROOT, capture_output=True, text=True, check=True
     ).stdout
-    return [f for f in out.splitlines() if f.strip()]
+    return [
+        f
+        for f in out.splitlines()
+        if f.strip() and Path(f).suffix.lower() in SCAN_EXTENSIONS
+    ]
 
 
 def is_excluded(path: str) -> bool:
@@ -108,7 +136,9 @@ def scan() -> tuple[list[dict], list[str]]:
                             "expiry": expiry.isoformat(),
                         }
                         if expiry < today:
-                            errors.append(f"{path}:{i + 1}: {kind} suppression EXPIRED {expiry}")
+                            errors.append(
+                                f"{path}:{i + 1}: {kind} suppression EXPIRED {expiry}"
+                            )
                         findings.append(entry)
                     break  # one finding per line is enough
     return findings, errors
@@ -127,7 +157,10 @@ def render(findings: list[dict], errors: list[str]) -> str:
         "",
     ]
     if findings:
-        out += ["| File | Line | Kind | Issue | Owner | Expiry |", "|---|---|---|---|---|---|"]
+        out += [
+            "| File | Line | Kind | Issue | Owner | Expiry |",
+            "|---|---|---|---|---|---|",
+        ]
         for f in findings:
             t = f["tag"] or {}
             out.append(
@@ -144,7 +177,9 @@ def render(findings: list[dict], errors: list[str]) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--check", action="store_true", help="validate only; do not write the report")
+    ap.add_argument(
+        "--check", action="store_true", help="validate only; do not write the report"
+    )
     args = ap.parse_args()
     findings, errors = scan()
     report = render(findings, errors)
