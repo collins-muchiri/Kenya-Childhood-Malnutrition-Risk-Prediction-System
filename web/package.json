@@ -6,7 +6,7 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
-    "lint": "next lint",
+    "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
@@ -15,7 +15,7 @@
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
       "prettier --write",
-      "next lint --fix"
+      "eslint --fix"
     ],
     "*.{json,md,css}": [
       "prettier --write"
@@ -27,13 +27,13 @@
     "clsx": "^2.1.1",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.469.0",
-    "next": "15.5.25",
+    "next": "16.4.3",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-leaflet": "^5.0.0",
     "recharts": "^2.15.0",
     "tailwind-merge": "^2.6.0",
-    "zod": "^4.6.4"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.22",
@@ -42,7 +42,7 @@
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.17.0",
-    "eslint-config-next": "15.5.25",
+    "eslint-config-next": "16.4.3",
     "husky": "^9.1.7",
     "lint-staged": "^17.5.1",
     "postcss": "^8.5.0",
