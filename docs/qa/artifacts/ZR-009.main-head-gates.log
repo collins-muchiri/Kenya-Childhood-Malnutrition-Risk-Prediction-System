@@ -1,0 +1,20 @@
+# R7 persistence check: full gate on main HEAD a60b2fb, 2026-10-25T14:10:51Z
+[ruff]
+All checks passed!
+exit: 0
+[black]
+50 files would be left unchanged.
+exit: 0
+[suppressions]
+suppressions: 0 compliant, 0 violation(s)
+exit: 0
+[pip-audit]
+No known vulnerabilities found
+kam-forecast Dependency not found on PyPI and could not be audited: kam-forecast (1.0.0)
+exit: 0
+[pytest]
+Required test coverage of 35% reached. Total coverage: 38.15%
+21 passed in 4.03s
+exit: 0
+[drift]
+worktree clean

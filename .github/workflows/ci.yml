@@ -54,3 +54,35 @@ jobs:
         run: |
           git diff --exit-code
           echo "drift guard: worktree clean after test run"
+
+  web-gates:
+    name: web-gates (deployed frontend)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4.2.2 (pinned SHA)
+
+      - name: Set up Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4.4.0 (pinned SHA)
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Clean install from lockfile
+        run: npm ci
+
+      - name: Supply-chain audit (fail on high+; tailwind moderates tracked in issue #6)
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Lint (eslint flat config; errors fail, warnings reported)
+        run: npm run lint
+
+      - name: Production build (the artefact Vercel deploys)
+        run: npm run build
