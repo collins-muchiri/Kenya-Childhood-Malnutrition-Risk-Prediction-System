@@ -1,5 +1,3 @@
-import os
-
 def create_license():
     """Create Apache 2.0 license file for Digital Public Good compliance."""
     license_text = """Apache License
@@ -148,9 +146,10 @@ incurred by, or claims asserted against, such Contributor by reason
 of your accepting any such warranty or indemnity.
 
 END OF TERMS AND CONDITIONS"""
-    
-    with open('LICENSE', 'w') as f:
+
+    with open("LICENSE", "w") as f:
         f.write(license_text)
+
 
 def create_dpg_metadata():
     """Create Digital Public Good metadata file."""
@@ -190,9 +189,10 @@ Apache License 2.0
 ## Contact
 For reuse inquiries: dpg@malnutrition-project.org
 """
-    
-    with open('DPG_METADATA.md', 'w') as f:
+
+    with open("DPG_METADATA.md", "w") as f:
         f.write(metadata)
+
 
 def create_contributing():
     """Create contributing guidelines."""
@@ -241,9 +241,10 @@ This project follows Digital Public Good Alliance standards. Major changes shoul
 ## Questions?
 Contact the maintainers at: contributors@malnutrition-project.org
 """
-    
-    with open('CONTRIBUTING.md', 'w') as f:
+
+    with open("CONTRIBUTING.md", "w") as f:
         f.write(contributing)
+
 
 def create_code_of_conduct():
     """Create code of conduct for the project."""
@@ -279,14 +280,15 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be repor
 ## Attribution
 This Code of Conduct is adapted from the Contributor Covenant, version 2.1.
 """
-    
-    with open('CODE_OF_CONDUCT.md', 'w') as f:
+
+    with open("CODE_OF_CONDUCT.md", "w") as f:
         f.write(coc)
+
 
 def package_for_dpg():
     """
     Generate all Digital Public Good compliance files.
-    
+
     Creates standardized documentation and licensing to meet Digital Public Good
     Alliance requirements for open-source humanitarian technology.
     """
@@ -294,12 +296,13 @@ def package_for_dpg():
     create_dpg_metadata()
     create_contributing()
     create_code_of_conduct()
-    
+
     print("Digital Public Good packaging complete:")
     print("- LICENSE (Apache 2.0)")
     print("- DPG_METADATA.md")
     print("- CONTRIBUTING.md")
     print("- CODE_OF_CONDUCT.md")
+
 
 if __name__ == "__main__":
     package_for_dpg()
